@@ -1,9 +1,0 @@
-c:\users\luka-hyli\documents\visual studio 2017\Projects\BloggerDocuments\BloggerDocuments\bin\Debug\netcoreapp1.1\BloggerDocuments.deps.json
-c:\users\luka-hyli\documents\visual studio 2017\Projects\BloggerDocuments\BloggerDocuments\bin\Debug\netcoreapp1.1\BloggerDocuments.runtimeconfig.json
-c:\users\luka-hyli\documents\visual studio 2017\Projects\BloggerDocuments\BloggerDocuments\bin\Debug\netcoreapp1.1\BloggerDocuments.runtimeconfig.dev.json
-c:\users\luka-hyli\documents\visual studio 2017\Projects\BloggerDocuments\BloggerDocuments\bin\Debug\netcoreapp1.1\BloggerDocuments.dll
-c:\users\luka-hyli\documents\visual studio 2017\Projects\BloggerDocuments\BloggerDocuments\obj\Debug\netcoreapp1.1\BloggerDocuments.csprojResolveAssemblyReference.cache
-c:\users\luka-hyli\documents\visual studio 2017\Projects\BloggerDocuments\BloggerDocuments\obj\Debug\netcoreapp1.1\BloggerDocuments.AssemblyInfo.cs
-c:\users\luka-hyli\documents\visual studio 2017\Projects\BloggerDocuments\BloggerDocuments\bin\Debug\netcoreapp1.1\BloggerDocuments.pdb
-c:\users\luka-hyli\documents\visual studio 2017\Projects\BloggerDocuments\BloggerDocuments\obj\Debug\netcoreapp1.1\BloggerDocuments.dll
-c:\users\luka-hyli\documents\visual studio 2017\Projects\BloggerDocuments\BloggerDocuments\obj\Debug\netcoreapp1.1\BloggerDocuments.pdb
