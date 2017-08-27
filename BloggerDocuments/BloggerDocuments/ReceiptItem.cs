@@ -1,7 +1,11 @@
-﻿namespace BloggerDocuments
+﻿using System;
+
+namespace BloggerDocuments
 {
     class ReceiptItem
     {
+        public Guid ProductId { get; set; }
+
         public string Name { get; set; }
 
         public decimal Price { get; set; }
@@ -12,10 +16,9 @@
 
         public ReceiptItem(Product product, decimal quantity)
         {
+            ProductId = product.Id;
             Name = product.Name;
-            Price = product.Price;
             Quantity = quantity;
-            Value = Price * Quantity;
         }
     }
 }

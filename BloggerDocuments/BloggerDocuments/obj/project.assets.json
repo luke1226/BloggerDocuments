@@ -1,5 +1,5 @@
 {
-  "version": 2,
+  "version": 3,
   "targets": {
     ".NETCoreApp,Version=v1.1": {
       "Libuv/1.9.1": {
@@ -7108,15 +7108,27 @@
   },
   "project": {
     "version": "1.0.0",
+    "restoreSettings": {
+      "hideWarningsAndErrors": true
+    },
     "restore": {
-      "projectUniqueName": "C:\\Users\\luka-hyli\\documents\\visual studio 2017\\Projects\\BloggerDocuments\\BloggerDocuments\\BloggerDocuments.csproj",
+      "projectUniqueName": "D:\\CheckoutGit\\BloggerDocuments\\BloggerDocuments\\BloggerDocuments\\BloggerDocuments.csproj",
       "projectName": "BloggerDocuments",
-      "projectPath": "C:\\Users\\luka-hyli\\documents\\visual studio 2017\\Projects\\BloggerDocuments\\BloggerDocuments\\BloggerDocuments.csproj",
-      "outputPath": "C:\\Users\\luka-hyli\\documents\\visual studio 2017\\Projects\\BloggerDocuments\\BloggerDocuments\\obj\\",
+      "projectPath": "D:\\CheckoutGit\\BloggerDocuments\\BloggerDocuments\\BloggerDocuments\\BloggerDocuments.csproj",
+      "packagesPath": "C:\\Users\\luka-hyli\\.nuget\\packages\\",
+      "outputPath": "D:\\CheckoutGit\\BloggerDocuments\\BloggerDocuments\\BloggerDocuments\\obj\\",
       "projectStyle": "PackageReference",
+      "configFilePaths": [
+        "C:\\Users\\luka-hyli\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+      ],
       "originalTargetFrameworks": [
         "netcoreapp1.1"
       ],
+      "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "https://api.nuget.org/v3/index.json": {}
+      },
       "frameworks": {
         "netcoreapp1.1": {
           "projectReferences": {}

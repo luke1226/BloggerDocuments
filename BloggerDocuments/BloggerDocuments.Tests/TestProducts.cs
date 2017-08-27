@@ -1,18 +1,24 @@
 ﻿using System;
+using NSubstitute;
 
-namespace BloggerDocuments
+namespace BloggerDocuments.Tests
 {
     class TestProducts
     {
+        private static readonly TestMocks Mocks = TestMocks.Instance;
+
         public static Product Product(string name, decimal price, decimal quantity = 1)
         {
-            return
+            var product =
                 new Product()
                 {
                     Id = Guid.NewGuid(),
-                    Name = name,
-                    Price = price
+                    Name = name
                 };
+
+            Mocks.PriceService.GetPrice(product.Id).Returns(price);
+
+            return product;
         }
     }
 }

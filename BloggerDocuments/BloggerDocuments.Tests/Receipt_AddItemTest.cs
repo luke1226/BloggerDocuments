@@ -1,4 +1,5 @@
-﻿using Xunit;
+﻿using BloggerDocuments.Prices;
+using Xunit;
 
 namespace BloggerDocuments.Tests
 { 
@@ -8,7 +9,7 @@ public class Receipt_AddItemTest
     public void ShouldReturnProperValue()
     {
         //Arrange
-        var receipt = new Receipt();
+        var receipt = new Receipt() { PriceCalculator = new PriceCalculatorMock() };
         var product = TestProducts.Product("A1", 5);
 
 
