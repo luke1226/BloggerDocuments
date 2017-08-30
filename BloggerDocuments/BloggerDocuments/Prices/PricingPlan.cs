@@ -2,11 +2,11 @@
 
 namespace BloggerDocuments.Prices
 {
-    public class PriceList
+    public class PricingPlan
     {
         public List<Price> Prices { get; set; }
 
-        public PriceList()
+        public PricingPlan()
         {
             Prices = new List<Price>();
         }

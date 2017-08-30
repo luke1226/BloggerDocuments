@@ -1,4 +1,4 @@
-﻿using BloggerDocuments.Prices;
+﻿using BloggerDocuments.Tests.Db;
 using Xunit;
 
 namespace BloggerDocuments.Tests
@@ -10,7 +10,7 @@ public class Receipt_AddItemTest
     {
         //Arrange
         var receipt = new Receipt() { PriceCalculator = new PriceCalculatorMock() };
-        var product = TestProducts.Product("A1", 5);
+        var product = TestDb.Products.Get("A1", p => p.WithPrice(5));
 
 
         //Act

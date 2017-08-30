@@ -4,7 +4,7 @@ namespace BloggerDocuments.Prices
 {
     public class Price
     {
-        public Guid ProductId { get; set; }
+        public Product Product { get; set; }
 
         public decimal Value { get; set; }
     }

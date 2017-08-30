@@ -22,17 +22,20 @@ namespace BloggerDocuments
             var item = new ReceiptItem(product, quantity);
             Items.Add(item);
 
-            var priceList = PriceCalculator.Calculate(product.Id, quantity, Items.Select(x => x.ProductId));
+            var priceList = 
+                PriceCalculator.Calculate(
+                    product, quantity, Items.Select(x => new Product(x.ProductId, x.Name)));
+
             UpdatePrices(priceList);
 
             Recalculate();
         }
 
-        private void UpdatePrices(PriceList priceList)
+        private void UpdatePrices(PricingPlan pricingPlan)
         {
-            foreach (var price in priceList.Prices)
+            foreach (var price in pricingPlan.Prices)
             {
-                var item = Items.FirstOrDefault(x => x.ProductId == price.ProductId);
+                var item = Items.FirstOrDefault(x => x.ProductId == price.Product.Id);
                 if (item == null)
                     continue;
 

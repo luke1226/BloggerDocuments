@@ -8,16 +8,16 @@ namespace BloggerDocuments.Tests
     {
         private readonly IPriceService _priceService = TestMocks.Instance.PriceService;
 
-        public PriceList Calculate(Guid productId, decimal quantity, IEnumerable<Guid> existingProducts)
+        public PricingPlan Calculate(Product product, decimal quantity, IEnumerable<Product> existingProducts)
         {
-            var price = _priceService.GetPrice(productId);
+            var price = _priceService.GetPrice(product.Id);
 
             return 
-                new PriceList()
+                new PricingPlan()
                 {
                     Prices = new List<Price>()
                     {
-                        new Price() { ProductId = productId, Value = price }
+                        new Price() { Product = product, Value = price }
                     }
                 };
         }
