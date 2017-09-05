@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using BloggerDocuments.Prices;
 using BloggerDocuments.Tests.Db;
-using NUnit.Framework;
+using BloggerDocuments.Tests.Mocks;
 using Xunit;
 using Assert = Xunit.Assert;
 
@@ -11,32 +10,44 @@ namespace BloggerDocuments.Tests.PriceCalculatorTests
     public class PriceCalculator_CalculateTest
     {
         [Fact]
-        public void ShouldReturnProperPriceList()
+        public void ShouldReturnProperPricingPlan()
         {
             //Arrange
-            var priceCalculator = new PriceCalculator(TestMocks.Instance.PriceService, new DiscountsServiceMock());
-            var newProduct = TestDb.Products.Get("A1");
-            var existingProducts =
-                new List<Product>()
+            var db =
+                TestDb.Add(
+                    c =>
+                    {
+                        c.Products.Add("A1", p => p.WithPrice(10));
+                        c.Products.Add("A2", p => p.WithPrice(5));
+                        c.Products.Add("A3", p => p.WithPrice(1));
+
+                        c.DiscountStructure.Add(d => d.AddProduct("A1", 0.1m).AddProduct("A2", 0.1m));
+                        c.DiscountStructure.Add(d => d.AddProduct("A1", 0.1m).AddProduct("A2", 0.1m));
+                    });
+
+            var priceCalculator = new PriceCalculator(db.PriceService, db.DiscountsService);
+            var elements =
+                new List<ElementInfo>()
                 {
-                    TestDb.Products.Get("A2")
+                    db.ElementInfos.Get("A1"),
+                    db.ElementInfos.Get("A2")
                 };
 
             var expectedPrices =
                 new List<Price>()
                 {
-                    new Price() {Product = newProduct, Value = 9},
-                    new Price() {Product = existingProducts[0], Value = 4.5m}
+                    TestPrices.Get("A1", 9m),
+                    TestPrices.Get("A2", 4.5m)
                 };
 
 
             //Act
-            var pricingPlan = priceCalculator.Calculate(newProduct, 1, existingProducts);
+            var pricingPlan = priceCalculator.Calculate(elements);
 
 
             //Assert
             Assert.Equal(2, pricingPlan.Prices.Count);
-            CollectionAssert.AreEquivalent(expectedPrices, pricingPlan.Prices);
+            Assert.Equal(expectedPrices, pricingPlan.Prices, new PricesComparer());
         }
     }
 }

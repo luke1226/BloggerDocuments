@@ -22,9 +22,12 @@ namespace BloggerDocuments
             var item = new ReceiptItem(product, quantity);
             Items.Add(item);
 
-            var priceList = 
+            var priceList =
                 PriceCalculator.Calculate(
-                    product, quantity, Items.Select(x => new Product(x.ProductId, x.Name)));
+                    Items.Select(x =>
+                        new ElementInfo(
+                            x.ProductId, 
+                            x.Quantity)));
 
             UpdatePrices(priceList);
 
@@ -35,7 +38,7 @@ namespace BloggerDocuments
         {
             foreach (var price in pricingPlan.Prices)
             {
-                var item = Items.FirstOrDefault(x => x.ProductId == price.Product.Id);
+                var item = Items.FirstOrDefault(x => x.ProductId == price.ProductId);
                 if (item == null)
                     continue;
 

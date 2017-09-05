@@ -1,36 +1,40 @@
 using System;
-using System.Collections.Generic;
+using BloggerDocuments.Prices;
 using BloggerDocuments.Tests.Assemblers;
+using BloggerDocuments.Tests.Mocks;
 using NSubstitute;
 
 namespace BloggerDocuments.Tests.Db
 {
     internal class ProductsTable
     {
-        private static readonly TestMocks Mocks = TestMocks.Instance;
+        private readonly TestDbObject _object;
 
-        private static readonly Dictionary<string, Product> Products = new Dictionary<string, Product>();
-
-        public Product Get(string name, Action<ProductAssembler> product)
+        public ProductsTable(TestDbObject @object)
         {
-            if (Products.ContainsKey(name))
-                return Products[name];
+            _object = @object;
+        }
 
+        public Product Add(string name, Action<ProductAssembler> product)
+        {
             var productObj = TestProducts.Product(name);
+
             var productAssembler = new ProductAssembler();
 
             product(productAssembler);
 
-            Products.Add(name, productObj);
+            _object.Products.Add(name, productObj);
+            _object.Prices.Add(
+                name,
+                new Price()
+                {
+                    ProductId = productObj.Id,
+                    Value = productAssembler.Price
+                });
 
-            Mocks.PriceService.GetPrice(productObj.Id).Returns(productAssembler.Price);
+            _object.PriceService.GetPrice(productObj.Id.Value).Returns(productAssembler.Price);
 
             return productObj;
-        }
-
-        public Product Get(string name)
-        {
-            return Get(name, p => { });
         }
     }
 }

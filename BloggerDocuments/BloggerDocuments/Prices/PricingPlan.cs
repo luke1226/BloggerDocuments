@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace BloggerDocuments.Prices
 {
@@ -6,9 +7,9 @@ namespace BloggerDocuments.Prices
     {
         public List<Price> Prices { get; set; }
 
-        public PricingPlan()
+        public PricingPlan(IEnumerable<Price> prices)
         {
-            Prices = new List<Price>();
+            Prices = prices.ToList();
         }
     }
 }

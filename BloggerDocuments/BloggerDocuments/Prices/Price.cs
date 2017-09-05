@@ -1,10 +1,8 @@
-﻿using System;
-
-namespace BloggerDocuments.Prices
+﻿namespace BloggerDocuments.Prices
 {
     public class Price
     {
-        public Product Product { get; set; }
+        public ProductId ProductId { get; set; }
 
         public decimal Value { get; set; }
     }

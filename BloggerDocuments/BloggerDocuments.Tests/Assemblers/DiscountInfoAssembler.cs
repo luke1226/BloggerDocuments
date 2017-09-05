@@ -1,38 +1,41 @@
-﻿using System;
-using System.Collections.Generic;
-using BloggerDocuments.Prices;
-using BloggerDocuments.Tests.Db;
+﻿using System.Collections.Generic;
+using BloggerDocuments.Prices.Discounts;
 
 namespace BloggerDocuments.Tests.Assemblers
 {
     class DiscountInfoAssembler
     {
+        private readonly Dictionary<string, Product> _products;
         private readonly DiscountInfo _discountInfo;
 
-        public DiscountInfoAssembler()
+        public DiscountInfoAssembler(Dictionary<string, Product> products)
         {
+            _products = products;
             _discountInfo =
                 new DiscountInfo()
                 {
-                    Products = new List<Product>(),
                     DiscountForProducts = new List<DiscountForProduct>()
                 };
         }
 
-        public DiscountInfoAssembler AddProduct(string name, decimal price, decimal discountValue)
+        public DiscountInfoAssembler AddProduct(string name, decimal quantity, decimal discountValue)
         {
-            var product = TestDb.Products.Get(name, p => p.WithPrice(price));
-
-            _discountInfo.Products.Add(product);
+            var product = _products[name];
 
             _discountInfo.DiscountForProducts.Add(
                 new DiscountForProduct()
                 {
-                    Product = product,
+                    ProductId = product.Id,
+                    Quantity = quantity,
                     Value = discountValue
                 });
 
             return this;
+        }
+
+        public DiscountInfoAssembler AddProduct(string name, decimal discountValue)
+        {
+            return AddProduct(name, 1, discountValue);
         }
 
         public DiscountInfo Build()

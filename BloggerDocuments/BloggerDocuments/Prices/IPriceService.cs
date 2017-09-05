@@ -1,9 +1,7 @@
-﻿using System;
-
-namespace BloggerDocuments.Prices
+﻿namespace BloggerDocuments.Prices
 {
     public interface IPriceService
     {
-        decimal GetPrice(Guid productId);
+        decimal GetPrice(string productId);
     }
 }

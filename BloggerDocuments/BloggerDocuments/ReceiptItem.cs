@@ -1,10 +1,8 @@
-﻿using System;
-
-namespace BloggerDocuments
+﻿namespace BloggerDocuments
 {
     class ReceiptItem
     {
-        public Guid ProductId { get; set; }
+        public ProductId ProductId { get; set; }
 
         public string Name { get; set; }
 

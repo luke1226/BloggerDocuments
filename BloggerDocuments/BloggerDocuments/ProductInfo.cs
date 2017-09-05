@@ -1,12 +1,12 @@
 ﻿namespace BloggerDocuments
 {
-    public class Product
+    public class ProductInfo
     {
         public ProductId Id { get; set; }
 
         public string Name { get; set; }
 
-        public Product(ProductId id, string name)
+        public ProductInfo(ProductId id, string name)
         {
             Id = id;
             Name = name;
