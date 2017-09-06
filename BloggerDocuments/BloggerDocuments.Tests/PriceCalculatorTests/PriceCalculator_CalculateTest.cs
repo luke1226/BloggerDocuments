@@ -22,7 +22,7 @@ namespace BloggerDocuments.Tests.PriceCalculatorTests
                         c.Products.Add("A3", p => p.WithPrice(1));
 
                         c.DiscountStructure.Add(d => d.AddProduct("A1", 0.1m).AddProduct("A2", 0.1m));
-                        c.DiscountStructure.Add(d => d.AddProduct("A1", 0.1m).AddProduct("A2", 0.1m));
+                        c.DiscountStructure.Add(d => d.AddProduct("A1", 0.5m).AddProduct("A3", 0.5m));
                     });
 
             var priceCalculator = new PriceCalculator(db.PriceService, db.DiscountsService);
