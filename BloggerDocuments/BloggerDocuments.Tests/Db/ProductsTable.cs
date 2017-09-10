@@ -1,5 +1,6 @@
 using System;
 using BloggerDocuments.Prices;
+using BloggerDocuments.Products;
 using BloggerDocuments.Tests.Assemblers;
 using BloggerDocuments.Tests.Mocks;
 using NSubstitute;
@@ -26,11 +27,7 @@ namespace BloggerDocuments.Tests.Db
             _object.Products.Add(name, productObj);
             _object.Prices.Add(
                 name,
-                new Price()
-                {
-                    ProductId = productObj.Id,
-                    Value = productAssembler.Price
-                });
+                new ProductPrice(productObj.Id, productAssembler.Price));
 
             _object.PriceService.GetPrice(productObj.Id.Value).Returns(productAssembler.Price);
 

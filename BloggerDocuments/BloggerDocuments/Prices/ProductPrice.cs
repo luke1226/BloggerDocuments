@@ -2,16 +2,16 @@
 
 namespace BloggerDocuments.Prices
 {
-    public class ElementInfo
+    public class ProductPrice
     {
         public ProductId ProductId { get; }
 
-        public decimal Quantity { get; }
+        public decimal Value { get; }
 
-        public ElementInfo(ProductId productId, decimal quantity)
+        public ProductPrice(ProductId productId, decimal value)
         {
             ProductId = productId;
-            Quantity = quantity;
+            Value = value;
         }
     }
 }

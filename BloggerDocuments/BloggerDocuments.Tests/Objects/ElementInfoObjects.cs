@@ -1,4 +1,5 @@
 ﻿using BloggerDocuments.Prices;
+using BloggerDocuments.Products;
 
 namespace BloggerDocuments.Tests.Objects
 {

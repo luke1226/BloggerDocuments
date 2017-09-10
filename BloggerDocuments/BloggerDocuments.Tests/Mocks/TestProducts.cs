@@ -1,4 +1,6 @@
-﻿namespace BloggerDocuments.Tests.Mocks
+﻿using BloggerDocuments.Products;
+
+namespace BloggerDocuments.Tests.Mocks
 {
     class TestProducts
     {

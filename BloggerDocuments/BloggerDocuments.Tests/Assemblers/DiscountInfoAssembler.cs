@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using BloggerDocuments.Prices.Discounts;
+using BloggerDocuments.Products;
 
 namespace BloggerDocuments.Tests.Assemblers
 {
@@ -11,24 +12,15 @@ namespace BloggerDocuments.Tests.Assemblers
         public DiscountInfoAssembler(Dictionary<string, Product> products)
         {
             _products = products;
-            _discountInfo =
-                new DiscountInfo()
-                {
-                    DiscountForProducts = new List<DiscountForProduct>()
-                };
+            _discountInfo = new DiscountInfo(new List<ProductDiscount>());
         }
 
         public DiscountInfoAssembler AddProduct(string name, decimal quantity, decimal discountValue)
         {
             var product = _products[name];
 
-            _discountInfo.DiscountForProducts.Add(
-                new DiscountForProduct()
-                {
-                    ProductId = product.Id,
-                    Quantity = quantity,
-                    Value = discountValue
-                });
+            _discountInfo.ProductDiscounts.Add(
+                new ProductDiscount(product.Id, quantity, discountValue));
 
             return this;
         }

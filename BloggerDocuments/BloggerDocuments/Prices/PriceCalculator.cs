@@ -26,7 +26,7 @@ namespace BloggerDocuments.Prices
             {
                 var discountInfoLocal =
                     discountStructure
-                        .FirstOrDefault(x => x.DiscountForProducts.FirstOrDefault(d => Equals(d.ProductId, elementInfo.ProductId)) != null);
+                        .FirstOrDefault(x => x.ProductDiscounts.FirstOrDefault(d => Equals(d.ProductId, elementInfo.ProductId)) != null);
 
                 if (discountInfoLocal != null)
                 {
@@ -39,19 +39,15 @@ namespace BloggerDocuments.Prices
             if (discountInfo == null)
                 return GetBasicPrices(elements);
 
-            var priceList = new List<Price>();
+            var priceList = new List<ProductPrice>();
 
-            foreach (var discount in discountInfo.DiscountForProducts)
+            foreach (var discount in discountInfo.ProductDiscounts)
             {
                 var productLocal = discount.ProductId;
                 var productPrice = _priceService.GetPrice(productLocal.Value);
 
                 priceList.Add(
-                    new Price()
-                    {
-                        ProductId = productLocal,
-                        Value = productPrice * (1 - discount.Value)
-                    });
+                    new ProductPrice(productLocal, productPrice * (1 - discount.Value)));
             }
 
             return new PricingPlan(priceList);
@@ -59,18 +55,13 @@ namespace BloggerDocuments.Prices
 
         private PricingPlan GetBasicPrices(IEnumerable<ElementInfo> elements)
         {
-            var priceList = new List<Price>();
+            var priceList = new List<ProductPrice>();
 
             foreach (var element in elements)
             {
                 var productPrice = _priceService.GetPrice(element.ProductId.Value);
 
-                priceList.Add(
-                    new Price()
-                    {
-                        ProductId = element.ProductId,
-                        Value = productPrice
-                    });
+                priceList.Add(new ProductPrice(element.ProductId, productPrice));
             }
 
             return new PricingPlan(priceList);
@@ -80,7 +71,7 @@ namespace BloggerDocuments.Prices
         {
             var containsAll = true;
 
-            foreach (var discountForProduct in discountInfo.DiscountForProducts)
+            foreach (var discountForProduct in discountInfo.ProductDiscounts)
             {
                 if (products.FirstOrDefault(x => Equals(x.ProductId, discountForProduct.ProductId)) == null)
                 {

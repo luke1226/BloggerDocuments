@@ -1,4 +1,6 @@
-﻿namespace BloggerDocuments
+﻿using BloggerDocuments.Products;
+
+namespace BloggerDocuments.Documents
 {
     class ReceiptItem
     {
@@ -18,5 +20,7 @@
             Name = product.Name;
             Quantity = quantity;
         }
+
+        public void SetPrice()
     }
 }

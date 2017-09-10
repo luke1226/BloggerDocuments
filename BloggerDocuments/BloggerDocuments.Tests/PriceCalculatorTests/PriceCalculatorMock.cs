@@ -20,14 +20,9 @@ namespace BloggerDocuments.Tests.PriceCalculatorTests
 
             return
                 new PricingPlan(
-                    new List<Price>()
+                    new List<ProductPrice>()
                     {
-                        new Price()
-                        {
-                            ProductId = element.ProductId,
-                            Value = price
-                        }
-
+                        new ProductPrice(element.ProductId, price)
                     });
         }
     }

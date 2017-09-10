@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BloggerDocuments
+namespace BloggerDocuments.Products
 {
     public class ProductId
     {

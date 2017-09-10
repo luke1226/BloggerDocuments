@@ -34,7 +34,7 @@ namespace BloggerDocuments.Tests.PriceCalculatorTests
                 };
 
             var expectedPrices =
-                new List<Price>()
+                new List<ProductPrice>()
                 {
                     TestPrices.Get("A1", 9m),
                     TestPrices.Get("A2", 4.5m)

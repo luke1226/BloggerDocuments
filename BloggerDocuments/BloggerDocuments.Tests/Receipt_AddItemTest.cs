@@ -1,4 +1,5 @@
-﻿using BloggerDocuments.Tests.Db;
+﻿using BloggerDocuments.Documents;
+using BloggerDocuments.Tests.Db;
 using BloggerDocuments.Tests.PriceCalculatorTests;
 using Xunit;
 

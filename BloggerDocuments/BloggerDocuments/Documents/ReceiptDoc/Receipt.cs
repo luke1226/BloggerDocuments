@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using BloggerDocuments.Prices;
+using BloggerDocuments.Products;
 
-namespace BloggerDocuments
+namespace BloggerDocuments.Documents
 {
     public class Receipt
     {
-        private List<ReceiptItem> Items { get; set; }
+        private List<ReceiptItem> Items { get; }
 
         public IPriceCalculator PriceCalculator { get; set; }
 

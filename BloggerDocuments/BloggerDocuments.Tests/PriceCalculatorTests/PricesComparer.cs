@@ -3,9 +3,9 @@ using BloggerDocuments.Prices;
 
 namespace BloggerDocuments.Tests.PriceCalculatorTests
 {
-    class PricesComparer : IEqualityComparer<Price>
+    class PricesComparer : IEqualityComparer<ProductPrice>
     {
-        public bool Equals(Price x, Price y)
+        public bool Equals(ProductPrice x, ProductPrice y)
         {
             if (Equals(x.ProductId, y.ProductId)
                 &&
@@ -17,7 +17,7 @@ namespace BloggerDocuments.Tests.PriceCalculatorTests
             return false;
         }
 
-        public int GetHashCode(Price obj)
+        public int GetHashCode(ProductPrice obj)
         {
             return obj.GetHashCode();
         }
