@@ -13,6 +13,8 @@ namespace BloggerDocuments.Documents
 
         public decimal Value { get; set; }
 
+        public decimal NetValue { get; set; }
+
         public Receipt()
         {
             Items = new List<ReceiptItem>();
