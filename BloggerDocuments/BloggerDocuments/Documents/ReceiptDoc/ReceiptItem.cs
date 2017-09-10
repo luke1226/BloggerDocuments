@@ -20,7 +20,5 @@ namespace BloggerDocuments.Documents
             Name = product.Name;
             Quantity = quantity;
         }
-
-        public void SetPrice()
     }
 }
