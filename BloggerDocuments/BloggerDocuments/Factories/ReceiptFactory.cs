@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using BloggerDocuments.Database;
 using BloggerDocuments.Documents;
 using BloggerDocuments.Prices;
@@ -33,7 +32,7 @@ class ReceiptFactory : IReceiptFactory
         return
             new Receipt()
             {
-                PriceCalculator = new PriceCalculator(PriceService, DiscountsService),
+                PriceCalculator = new PriceOnlyForNewElementCalculator(PriceService, DiscountsService),
                 Items = salesOrderEntity.Items.Select(e => new ReceiptItem(e)).ToList(),
                 Value = salesOrderEntity.Value,
                 NetValue = salesOrderEntity.NetValue
