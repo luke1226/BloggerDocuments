@@ -26,10 +26,10 @@ namespace BloggerDocuments.Tests.PriceCalculatorTests
                     });
 
             var priceCalculator = new PriceCalculator(db.PriceService, db.DiscountsService);
+            var newElement = db.ElementInfos.Get("A1");
             var elements =
                 new List<ElementInfo>()
                 {
-                    db.ElementInfos.Get("A1"),
                     db.ElementInfos.Get("A2")
                 };
 
@@ -42,7 +42,7 @@ namespace BloggerDocuments.Tests.PriceCalculatorTests
 
 
             //Act
-            var pricingPlan = priceCalculator.Calculate(elements);
+            var pricingPlan = priceCalculator.Calculate(newElement, elements);
 
 
             //Assert

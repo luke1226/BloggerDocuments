@@ -13,13 +13,19 @@ namespace BloggerDocuments.Products
         public ProductId()
         {
             Value = Guid.NewGuid().ToString();;
-            _code = Value.ToString();
+            _code = Value;
         }
 
         public ProductId(string code)
         {
-            Value = code.ToString();
+            Value = code;
             _code = code;
+        }
+
+        public ProductId(int id)
+        {
+            Value = id.ToString();
+            _code = Value;
         }
 
 

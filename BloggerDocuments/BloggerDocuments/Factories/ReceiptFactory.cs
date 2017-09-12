@@ -1,4 +1,6 @@
-﻿using BloggerDocuments.Database;
+﻿using System.Collections.Generic;
+using System.Linq;
+using BloggerDocuments.Database;
 using BloggerDocuments.Documents;
 using BloggerDocuments.Prices;
 using BloggerDocuments.Prices.Discounts;
@@ -13,6 +15,8 @@ class ReceiptFactory : IReceiptFactory
 
     public IReceiptRepository ReceiptRepository { get; set; }
 
+    public ISalesOrderRepository SalesOrderRepository { get; set; }
+
     public Receipt New()
     {
         return
@@ -22,16 +26,17 @@ class ReceiptFactory : IReceiptFactory
             };
     }
 
-    public Receipt Edit(int id)
+    public Receipt GenerateFromSalesOrder(int salesOrderId)
     {
-        var receiptEntity = ReceiptRepository.Get(id);
+        var salesOrderEntity = SalesOrderRepository.Get(salesOrderId);
 
         return
             new Receipt()
             {
                 PriceCalculator = new PriceCalculator(PriceService, DiscountsService),
-                Value = receiptEntity.Value,
-                NetValue = receiptEntity.NetValue
+                Items = salesOrderEntity.Items.Select(e => new ReceiptItem(e)).ToList(),
+                Value = salesOrderEntity.Value,
+                NetValue = salesOrderEntity.NetValue
             };
     }
 }

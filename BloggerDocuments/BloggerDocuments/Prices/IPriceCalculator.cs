@@ -4,6 +4,6 @@ namespace BloggerDocuments.Prices
 {
     public interface IPriceCalculator
     {
-        PricingPlan Calculate(IEnumerable<ElementInfo> elements);
+        PricingPlan Calculate(ElementInfo newElement, IEnumerable<ElementInfo> elements);
     }
 }

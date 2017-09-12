@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using BloggerDocuments.Prices;
 
 namespace BloggerDocuments.Tests.PriceCalculatorTests
@@ -13,16 +12,15 @@ namespace BloggerDocuments.Tests.PriceCalculatorTests
             _priceService = priceService;
         }
 
-        public PricingPlan Calculate(IEnumerable<ElementInfo> elements)
+        public PricingPlan Calculate(ElementInfo newElement, IEnumerable<ElementInfo> elements)
         {
-            var element = elements.First();
-            var price = _priceService.GetPrice(element.ProductId.Value);
+            var price = _priceService.GetPrice(newElement.ProductId.Value);
 
             return
                 new PricingPlan(
                     new List<ProductPrice>()
                     {
-                        new ProductPrice(element.ProductId, price)
+                        new ProductPrice(newElement.ProductId, price)
                     });
         }
     }

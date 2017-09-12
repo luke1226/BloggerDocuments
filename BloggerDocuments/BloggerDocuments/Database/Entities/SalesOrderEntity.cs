@@ -2,7 +2,7 @@
 
 namespace BloggerDocuments.Database.Entities
 {
-    public class ReceiptEntity
+    public class SalesOrderEntity
     {
         public int Id { get; set; }
 
@@ -10,6 +10,6 @@ namespace BloggerDocuments.Database.Entities
 
         public decimal NetValue { get; set; }
 
-        public List<ReceiptItemEntity> Items { get; set; }
+        public List<SalesOrderItemEntity> Items { get; set; }
     }
 }

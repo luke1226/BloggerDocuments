@@ -6,6 +6,6 @@ namespace BloggerDocuments.Factories
     {
         Receipt New();
 
-        Receipt Edit(int id);
+        Receipt GenerateFromSalesOrder(int salesOrderId);
     }
 }

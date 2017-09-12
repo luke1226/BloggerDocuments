@@ -1,8 +1,9 @@
-﻿using BloggerDocuments.Products;
+﻿using BloggerDocuments.Database.Entities;
+using BloggerDocuments.Products;
 
 namespace BloggerDocuments.Documents
 {
-    class ReceiptItem
+    public class ReceiptItem
     {
         public ProductId ProductId { get; set; }
 
@@ -19,6 +20,14 @@ namespace BloggerDocuments.Documents
             ProductId = product.Id;
             Name = product.Name;
             Quantity = quantity;
+        }
+
+        public ReceiptItem(SalesOrderItemEntity entity)
+        {
+            ProductId = new ProductId(entity.ProductId);
+            Name = entity.ProductName;
+            Price = entity.Price;
+            Quantity = entity.Quantity;
         }
     }
 }

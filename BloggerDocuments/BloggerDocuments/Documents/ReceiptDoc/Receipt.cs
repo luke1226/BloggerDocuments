@@ -7,9 +7,9 @@ namespace BloggerDocuments.Documents
 {
     public class Receipt
     {
-        private List<ReceiptItem> Items { get; }
-
         public IPriceCalculator PriceCalculator { get; set; }
+
+        public List<ReceiptItem> Items { get; set; }
 
         public decimal Value { get; set; }
 
@@ -23,14 +23,16 @@ namespace BloggerDocuments.Documents
         public void AddItem(Product product, decimal quantity = 1)
         {
             var item = new ReceiptItem(product, quantity);
-            Items.Add(item);
 
             var priceList =
                 PriceCalculator.Calculate(
+                    new ElementInfo(product.Id, quantity), 
                     Items.Select(x =>
                         new ElementInfo(
                             x.ProductId, 
                             x.Quantity)));
+
+            Items.Add(item);
 
             UpdatePrices(priceList);
 

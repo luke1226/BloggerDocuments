@@ -15,14 +15,17 @@ namespace BloggerDocuments.Prices
             _discountsService = discountsService;
         }
 
-        public PricingPlan Calculate(IEnumerable<ElementInfo> elements)
+        public PricingPlan Calculate(ElementInfo newElement, IEnumerable<ElementInfo> elements)
         {
             var discountStructure = _discountsService.GetDiscountStructure();
+
+            var allElements = new List<ElementInfo>(elements);
+            allElements.Add(newElement);
 
             ElementInfo element = null;
             DiscountInfo discountInfo = null;
 
-            foreach (var elementInfo in elements)
+            foreach (var elementInfo in allElements)
             {
                 var discountInfoLocal =
                     discountStructure
@@ -37,7 +40,7 @@ namespace BloggerDocuments.Prices
             }
 
             if (discountInfo == null)
-                return GetBasicPrices(elements);
+                return GetBasicPrices(allElements);
 
             var priceList = new List<ProductPrice>();
 
