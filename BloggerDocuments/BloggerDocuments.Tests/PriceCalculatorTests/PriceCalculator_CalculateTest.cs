@@ -36,8 +36,8 @@ namespace BloggerDocuments.Tests.PriceCalculatorTests
             var expectedPrices =
                 new List<ProductPrice>()
                 {
-                    TestPrices.Get("A1", 9m),
-                    TestPrices.Get("A2", 4.5m)
+                    TestPrices.Get(db.Products["A1"], 9m),
+                    TestPrices.Get(db.Products["A2"], 4.5m)
                 };
 
 

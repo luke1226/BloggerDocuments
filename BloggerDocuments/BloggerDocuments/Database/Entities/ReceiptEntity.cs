@@ -8,8 +8,6 @@ namespace BloggerDocuments.Database.Entities
 
         public decimal Value { get; set; }
 
-        public decimal NetValue { get; set; }
-
         public List<ReceiptItemEntity> Items { get; set; }
     }
 }

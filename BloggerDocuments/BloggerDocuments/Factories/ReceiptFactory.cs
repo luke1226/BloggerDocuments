@@ -6,37 +6,36 @@ using BloggerDocuments.Prices.Discounts;
 
 namespace BloggerDocuments.Factories
 {
-class ReceiptFactory : IReceiptFactory
-{
-    public IPriceService PriceService { get; set; }
-
-    public IDiscountsService DiscountsService { get; set; }
-
-    public IReceiptRepository ReceiptRepository { get; set; }
-
-    public ISalesOrderRepository SalesOrderRepository { get; set; }
-
-    public Receipt New()
+    public class ReceiptFactory : IReceiptFactory
     {
-        return
-            new Receipt()
-            {
-                PriceCalculator = new PriceCalculator(PriceService, DiscountsService)
-            };
-    }
+        public IPriceService PriceService { get; set; }
 
-    public Receipt GenerateFromSalesOrder(int salesOrderId)
-    {
-        var salesOrderEntity = SalesOrderRepository.Get(salesOrderId);
+        public IDiscountsService DiscountsService { get; set; }
 
-        return
-            new Receipt()
-            {
-                PriceCalculator = new PriceOnlyForNewElementCalculator(PriceService, DiscountsService),
-                Items = salesOrderEntity.Items.Select(e => new ReceiptItem(e)).ToList(),
-                Value = salesOrderEntity.Value,
-                NetValue = salesOrderEntity.NetValue
-            };
+        public IReceiptRepository ReceiptRepository { get; set; }
+
+        public ISalesOrderRepository SalesOrderRepository { get; set; }
+
+        public Receipt New()
+        {
+            return
+                new Receipt()
+                {
+                    PriceCalculator = new PriceCalculator(PriceService, DiscountsService)
+                };
+        }
+
+        public Receipt GenerateFromSalesOrder(int salesOrderId)
+        {
+            var salesOrderEntity = SalesOrderRepository.Get(salesOrderId);
+
+            return
+                new Receipt()
+                {
+                    PriceCalculator = new PriceOnlyForNewElementCalculator(PriceService, DiscountsService),
+                    Items = salesOrderEntity.Items.Select(e => new ReceiptItem(e)).ToList(),
+                    Value = salesOrderEntity.Value  
+                };
+        }
     }
-}
 }

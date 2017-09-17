@@ -1,43 +1,31 @@
-﻿using System;
-
-namespace BloggerDocuments.Products
+﻿namespace BloggerDocuments.Products
 {
     public class ProductId
     {
-        private readonly string _code;
-
         public string Value { get; }
 
 
 
-        public ProductId()
-        {
-            Value = Guid.NewGuid().ToString();;
-            _code = Value;
-        }
-
         public ProductId(string code)
         {
             Value = code;
-            _code = code;
         }
 
         public ProductId(int id)
         {
             Value = id.ToString();
-            _code = Value;
         }
 
 
 
         public override bool Equals(object obj)
         {
-            return (obj as ProductId)?._code == _code;
+            return (obj as ProductId)?.Value == Value;
         }
 
         public override int GetHashCode()
         {
-            return _code.GetHashCode();
+            return Value.GetHashCode();
         }
     }
 }

@@ -5,9 +5,9 @@ namespace BloggerDocuments.Tests.Mocks
 {
     class TestPrices
     {
-        public static ProductPrice Get(string productName, decimal value)
+        public static ProductPrice Get(Product product, decimal value)
         {
-            return new ProductPrice(new ProductId(productName), value);
+            return new ProductPrice(product.Id, value);
         }
     }
 }

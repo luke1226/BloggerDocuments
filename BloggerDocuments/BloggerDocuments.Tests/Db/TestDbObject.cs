@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using BloggerDocuments.Database;
 using BloggerDocuments.Prices;
 using BloggerDocuments.Prices.Discounts;
 using BloggerDocuments.Products;
@@ -12,15 +13,21 @@ namespace BloggerDocuments.Tests.Db
 
         public IDiscountsService DiscountsService { get; set; }
 
+        public ISalesOrderRepository SalesOrderRepository { get; set; }
+
         public Dictionary<string, Product> Products { get; }
 
         public TestDbObjectList<string, ElementInfo> ElementInfos { get; }
 
         public Dictionary<string, ProductPrice> Prices { get; }
 
+        public List<int> SalesOrderEntities { get; }
+
         public TestDbObject()
         {
             PriceService = Substitute.For<IPriceService>();
+
+            SalesOrderRepository = Substitute.For<ISalesOrderRepository>();
 
             Products = new Dictionary<string, Product>();
 
@@ -32,6 +39,8 @@ namespace BloggerDocuments.Tests.Db
                 });
 
             Prices = new Dictionary<string, ProductPrice>();
+
+            SalesOrderEntities = new List<int>();
         }
     }
 }

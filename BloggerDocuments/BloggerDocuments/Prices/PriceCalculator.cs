@@ -46,11 +46,11 @@ namespace BloggerDocuments.Prices
 
             foreach (var discount in discountInfo.ProductDiscounts)
             {
-                var productLocal = discount.ProductId;
-                var productPrice = _priceService.GetPrice(productLocal.Value);
+                var productIdLocal = discount.ProductId;
+                var productPrice = _priceService.GetPrice(productIdLocal.Value);
 
                 priceList.Add(
-                    new ProductPrice(productLocal, productPrice * (1 - discount.Value)));
+                    new ProductPrice(productIdLocal, productPrice * (1 - discount.Value)));
             }
 
             return new PricingPlan(priceList);

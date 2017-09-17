@@ -10,6 +10,7 @@ namespace BloggerDocuments.Tests.Db
     internal class ProductsTable
     {
         private readonly TestDbObject _object;
+        private int _currentProductId;
 
         public ProductsTable(TestDbObject @object)
         {
@@ -18,7 +19,9 @@ namespace BloggerDocuments.Tests.Db
 
         public Product Add(string name, Action<ProductAssembler> product)
         {
-            var productObj = TestProducts.Product(name);
+            _currentProductId++;
+
+            var productObj = TestProducts.Product(_currentProductId, name);
 
             var productAssembler = new ProductAssembler();
 

@@ -12,7 +12,6 @@ namespace BloggerDocuments.Prices
         {
             _priceService = priceService;
             _discountsService = discountsService;
-            throw new System.NotImplementedException();
         }
 
         public PricingPlan Calculate(ElementInfo newElement, IEnumerable<ElementInfo> elements)

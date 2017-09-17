@@ -1,8 +1,10 @@
+using BloggerDocuments.Products;
+
 namespace BloggerDocuments.Database.Entities
 {
     public class SalesOrderItemEntity
     {
-        public int ProductId { get; set; }
+        public ProductId ProductId { get; set; }
 
         public string ProductName { get; set; }
 
@@ -11,7 +13,5 @@ namespace BloggerDocuments.Database.Entities
         public decimal Quantity { get; set; }
 
         public decimal Value { get; set; }
-
-        public decimal NetValue { get; set; }
     }
 }

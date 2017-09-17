@@ -24,10 +24,11 @@ namespace BloggerDocuments.Documents
 
         public ReceiptItem(SalesOrderItemEntity entity)
         {
-            ProductId = new ProductId(entity.ProductId);
+            ProductId = entity.ProductId;
             Name = entity.ProductName;
             Price = entity.Price;
             Quantity = entity.Quantity;
+            Value = entity.Value;
         }
     }
 }
