@@ -7,20 +7,20 @@ namespace BloggerDocuments.Tests.Assemblers
     class DiscountInfoAssembler
     {
         private readonly Dictionary<string, Product> _products;
-        private readonly DiscountInfo _discountInfo;
+        private readonly BundleInfo _bundleInfo;
 
         public DiscountInfoAssembler(Dictionary<string, Product> products)
         {
             _products = products;
-            _discountInfo = new DiscountInfo(new List<ProductDiscount>());
+            _bundleInfo = new BundleInfo(new List<ProductDiscount>());
         }
 
         public DiscountInfoAssembler AddProduct(string name, decimal quantity, decimal discountValue)
         {
             var product = _products[name];
 
-            _discountInfo.ProductDiscounts.Add(
-                new ProductDiscount(product.Id, quantity, discountValue));
+            _bundleInfo.ProductDiscounts.Add(
+                new ProductDiscount(product.Info, quantity, discountValue));
 
             return this;
         }
@@ -30,9 +30,9 @@ namespace BloggerDocuments.Tests.Assemblers
             return AddProduct(name, 1, discountValue);
         }
 
-        public DiscountInfo Build()
+        public BundleInfo Build()
         {
-            return _discountInfo;
+            return _bundleInfo;
         }
     }
 }

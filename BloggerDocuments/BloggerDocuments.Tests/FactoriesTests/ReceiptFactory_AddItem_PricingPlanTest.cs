@@ -15,6 +15,7 @@ namespace BloggerDocuments.Tests.FactoriesTests
                     c =>
                     {
                         c.Products.Add("A1", p => p.WithPrice(10));
+                        c.Products.Add("A2", p => p.WithPrice(50));
                     });
 
             var receiptFactory = new ReceiptFactory()
@@ -28,10 +29,11 @@ namespace BloggerDocuments.Tests.FactoriesTests
 
             //Act
             receipt.AddItem(db.Products["A1"]);
+            receipt.AddItem(db.Products["A2"]);
 
 
             //Assert
-            Assert.Equal(10, receipt.Value);
+            Assert.Equal(60, receipt.Value);
         }
 
         [Fact]
@@ -43,6 +45,7 @@ namespace BloggerDocuments.Tests.FactoriesTests
                     c =>
                     {
                         c.Products.Add("A1", p => p.WithPrice(10));
+                        c.Products.Add("A2", p => p.WithPrice(50));
 
                         c.Documents.AddSalesOrder(
                             doc =>
@@ -50,7 +53,7 @@ namespace BloggerDocuments.Tests.FactoriesTests
                                 doc.WithItems(
                                     itemsContext =>
                                     {
-                                        itemsContext.Add("A1", 20, 1);
+                                        itemsContext.Add("A1", 5, 1);
                                     });
                             });
                     });
@@ -66,11 +69,52 @@ namespace BloggerDocuments.Tests.FactoriesTests
 
 
             //Act
-            receipt.AddItem(db.Products["A1"]);
+            receipt.AddItem(db.Products["A2"]);
 
 
             //Assert
-            Assert.Equal(10, receipt.Value);
+            Assert.Equal(55, receipt.Value);
+        }
+
+        [Fact]
+        public void ShouldReturnPricingPlanForOnlyNewItemsInGenerateFromReceiptModeWhenSameProductsAdded()
+        {
+            //Arrange
+            var db =
+                TestDb.Add(
+                    c =>
+                    {
+                        c.Products.Add("A1", p => p.WithPrice(10));
+                        c.Products.Add("A2", p => p.WithPrice(5));
+
+                        c.Documents.AddSalesOrder(
+                            doc =>
+                            {
+                                doc.WithItems(
+                                    itemsContext =>
+                                    {
+                                        itemsContext.Add("A1", 5, 1);
+                                        itemsContext.Add("A2", 2, 1);
+                                    });
+                            });
+                    });
+
+            var receiptFactory = new ReceiptFactory()
+            {
+                PriceService = db.PriceService,
+                DiscountsService = db.DiscountsService,
+                SalesOrderRepository = db.SalesOrderRepository
+            };
+
+            var receipt = receiptFactory.GenerateFromSalesOrder(db.SalesOrderEntities[0]);
+
+
+            //Act
+            receipt.AddItem(db.Products["A2"]);
+
+
+            //Assert
+            Assert.Equal(12, receipt.Value);
         }
     }
 }

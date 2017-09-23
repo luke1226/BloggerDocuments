@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using BloggerDocuments.Database;
+using BloggerDocuments.Documents;
 using BloggerDocuments.Prices;
 using BloggerDocuments.Prices.Discounts;
 using BloggerDocuments.Products;
@@ -19,7 +20,7 @@ namespace BloggerDocuments.Tests.Db
 
         public TestDbObjectList<string, ElementInfo> ElementInfos { get; }
 
-        public Dictionary<string, ProductPrice> Prices { get; }
+        public Dictionary<string, ElementPrice> Prices { get; }
 
         public List<int> SalesOrderEntities { get; }
 
@@ -35,10 +36,10 @@ namespace BloggerDocuments.Tests.Db
                 k =>
                 {
                     var p = Products[k];
-                    return new ElementInfo(p.Id, 1);
+                    return new ElementInfo(p.Info, ItemId.New(), 1);
                 });
 
-            Prices = new Dictionary<string, ProductPrice>();
+            //Prices = new Dictionary<string, ElementPrice>();
 
             SalesOrderEntities = new List<int>();
         }

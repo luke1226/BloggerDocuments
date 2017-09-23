@@ -1,5 +1,4 @@
 using System;
-using BloggerDocuments.Prices;
 using BloggerDocuments.Products;
 using BloggerDocuments.Tests.Assemblers;
 using BloggerDocuments.Tests.Mocks;
@@ -28,11 +27,11 @@ namespace BloggerDocuments.Tests.Db
             product(productAssembler);
 
             _object.Products.Add(name, productObj);
-            _object.Prices.Add(
-                name,
-                new ProductPrice(productObj.Id, productAssembler.Price));
+            //_object.Prices.Add(
+            //    name,
+            //    new ElementPrice(productObj.Id, productAssembler.Price));
 
-            _object.PriceService.GetPrice(productObj.Id.Value).Returns(productAssembler.Price);
+            _object.PriceService.GetPrice(productObj.Info.Id).Returns(productAssembler.Price);
 
             return productObj;
         }

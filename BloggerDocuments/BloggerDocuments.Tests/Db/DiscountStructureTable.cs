@@ -8,12 +8,12 @@ namespace BloggerDocuments.Tests.Db
     internal class DiscountStructureTable
     {
         private readonly TestDbObject _object;
-        private readonly List<DiscountInfo> _discountStructure;
+        private readonly List<BundleInfo> _discountStructure;
 
         public DiscountStructureTable(TestDbObject @object)
         {
             _object = @object;
-            _discountStructure = new List<DiscountInfo>();
+            _discountStructure = new List<BundleInfo>();
         }
 
         public void Add(Action<DiscountInfoAssembler> discount)
@@ -24,7 +24,7 @@ namespace BloggerDocuments.Tests.Db
             _discountStructure.Add(di);
         }
 
-        public List<DiscountInfo> GetDiscountInfos()
+        public List<BundleInfo> GetDiscountInfos()
         {
             return _discountStructure;
         }

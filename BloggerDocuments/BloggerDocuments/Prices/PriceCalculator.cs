@@ -15,42 +15,49 @@ namespace BloggerDocuments.Prices
             _discountsService = discountsService;
         }
 
-        public PricingPlan Calculate(ElementInfo newElement, IEnumerable<ElementInfo> elements)
+        public PricingPlan Calculate(IEnumerable<ElementInfo> elements)
         {
-            var discountStructure = _discountsService.GetDiscountStructure();
+            var bundleStructure = _discountsService.GetBundleStructure();
 
-            var allElements = new List<ElementInfo>(elements);
-            allElements.Add(newElement);
+            var newElements = new List<ElementInfo>(elements);
 
-            ElementInfo element = null;
-            DiscountInfo discountInfo = null;
+            BundleInfo bundleInfo = null;
 
-            foreach (var elementInfo in allElements)
+            foreach (var elementInfo in newElements)
             {
-                var discountInfoLocal =
-                    discountStructure
-                        .FirstOrDefault(x => x.ProductDiscounts.FirstOrDefault(d => Equals(d.ProductId, elementInfo.ProductId)) != null);
+                var bundleInfoLocal =
+                    bundleStructure
+                        .FirstOrDefault(x => x.ProductDiscounts.FirstOrDefault(d => Equals(d.ProductInfo, elementInfo.ProductInfo)) != null);
 
-                if (discountInfoLocal != null)
+                if (bundleInfoLocal != null)
                 {
-                    discountInfo = discountInfoLocal;
-                    element = elementInfo;
-                    break;
+                    var hasAllProductsFromBudle = HasAllProductsFromBundle(newElements, bundleInfoLocal);
+
+                    if (hasAllProductsFromBudle)
+                    {
+                        bundleInfo = bundleInfoLocal;
+                        break;
+                    }
                 }
             }
 
-            if (discountInfo == null)
-                return GetBasicPrices(allElements);
+            if (bundleInfo == null)
+                return GetBasicPrices(newElements);
 
-            var priceList = new List<ProductPrice>();
+            var priceList = new List<ElementPrice>();
 
-            foreach (var discount in discountInfo.ProductDiscounts)
+            foreach (var discount in bundleInfo.ProductDiscounts)
             {
-                var productIdLocal = discount.ProductId;
-                var productPrice = _priceService.GetPrice(productIdLocal.Value);
+                var productIdLocal = discount.ProductInfo;
+                var productPrice = _priceService.GetPrice(productIdLocal.Id);
+
+                var elementLocal = newElements.FirstOrDefault(x => x.ProductInfo == productIdLocal);
+
+                if(elementLocal == null)
+                    continue;
 
                 priceList.Add(
-                    new ProductPrice(productIdLocal, productPrice * (1 - discount.Value)));
+                    new ElementPrice(elementLocal.ItemId, elementLocal.ProductInfo, productPrice * (1 - discount.Value)));
             }
 
             return new PricingPlan(priceList);
@@ -58,25 +65,25 @@ namespace BloggerDocuments.Prices
 
         private PricingPlan GetBasicPrices(IEnumerable<ElementInfo> elements)
         {
-            var priceList = new List<ProductPrice>();
+            var priceList = new List<ElementPrice>();
 
             foreach (var element in elements)
             {
-                var productPrice = _priceService.GetPrice(element.ProductId.Value);
+                var productPrice = _priceService.GetPrice(element.ProductInfo.Id);
 
-                priceList.Add(new ProductPrice(element.ProductId, productPrice));
+                priceList.Add(new ElementPrice(element.ItemId, element.ProductInfo, productPrice));
             }
 
             return new PricingPlan(priceList);
         }
 
-        private bool HasAllProducts(IEnumerable<ElementInfo> products, DiscountInfo discountInfo)
+        private bool HasAllProductsFromBundle(IEnumerable<ElementInfo> products, BundleInfo bundleInfo)
         {
             var containsAll = true;
 
-            foreach (var discountForProduct in discountInfo.ProductDiscounts)
+            foreach (var discountForProduct in bundleInfo.ProductDiscounts)
             {
-                if (products.FirstOrDefault(x => Equals(x.ProductId, discountForProduct.ProductId)) == null)
+                if (products.FirstOrDefault(x => Equals(x.ProductInfo, discountForProduct.ProductInfo)) == null)
                 {
                     containsAll = false;
                     break;

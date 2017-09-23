@@ -1,13 +1,15 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace BloggerDocuments.Prices.Discounts
 {
-    public class DiscountInfo
+    [DebuggerDisplay("Count = {ProductDiscounts.Count}")]
+    public class BundleInfo
     {
         public List<ProductDiscount> ProductDiscounts { get; }
 
-        public DiscountInfo(IEnumerable<ProductDiscount> productDiscounts)
+        public BundleInfo(IEnumerable<ProductDiscount> productDiscounts)
         {
             ProductDiscounts = productDiscounts.ToList();
         }

@@ -29,12 +29,15 @@ namespace BloggerDocuments.Factories
         {
             var salesOrderEntity = SalesOrderRepository.Get(salesOrderId);
 
+            var items = salesOrderEntity.Items.Select(e => new ReceiptItem(e)).ToList();
+            var itemsIds = items.Select(x => x.ItemId);
+
             return
                 new Receipt()
                 {
-                    PriceCalculator = new PriceOnlyForNewElementCalculator(PriceService, DiscountsService),
-                    Items = salesOrderEntity.Items.Select(e => new ReceiptItem(e)).ToList(),
-                    Value = salesOrderEntity.Value  
+                    PriceCalculator = new PriceOnlyForNewElementCalculator(PriceService, DiscountsService, itemsIds),
+                    Items = items,
+                    Value = salesOrderEntity.Value
                 };
         }
     }

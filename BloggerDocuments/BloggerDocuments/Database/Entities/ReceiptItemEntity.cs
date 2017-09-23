@@ -4,7 +4,7 @@ namespace BloggerDocuments.Database.Entities
 {
     public class ReceiptItemEntity
     {
-        public ProductId ProductId { get; set; }
+        public ProductInfo ProductInfo { get; set; }
 
         public string ProductName { get; set; }
 

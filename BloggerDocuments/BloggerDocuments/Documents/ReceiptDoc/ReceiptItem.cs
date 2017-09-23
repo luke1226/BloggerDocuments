@@ -5,7 +5,9 @@ namespace BloggerDocuments.Documents
 {
     public class ReceiptItem
     {
-        public ProductId ProductId { get; set; }
+        public ProductInfo ProductInfo { get; set; }
+
+        public ItemId ItemId { get; set; }
 
         public string Name { get; set; }
 
@@ -17,14 +19,16 @@ namespace BloggerDocuments.Documents
 
         public ReceiptItem(Product product, decimal quantity)
         {
-            ProductId = product.Id;
+            ProductInfo = product.Info;
+            ItemId = ItemId.New();
             Name = product.Name;
             Quantity = quantity;
         }
 
         public ReceiptItem(SalesOrderItemEntity entity)
         {
-            ProductId = entity.ProductId;
+            ProductInfo = entity.ProductInfo;
+            ItemId = ItemId.New();
             Name = entity.ProductName;
             Price = entity.Price;
             Quantity = entity.Quantity;

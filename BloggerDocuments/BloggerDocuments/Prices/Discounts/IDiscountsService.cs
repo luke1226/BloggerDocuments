@@ -4,6 +4,6 @@ namespace BloggerDocuments.Prices.Discounts
 {
     public interface IDiscountsService
     {
-        List<DiscountInfo> GetDiscountStructure();
+        List<BundleInfo> GetBundleStructure();
     }
 }

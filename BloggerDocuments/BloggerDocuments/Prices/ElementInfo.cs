@@ -1,16 +1,20 @@
-﻿using BloggerDocuments.Products;
+﻿using BloggerDocuments.Documents;
+using BloggerDocuments.Products;
 
 namespace BloggerDocuments.Prices
 {
     public class ElementInfo
     {
-        public ProductId ProductId { get; }
+        public ProductInfo ProductInfo { get; }
+
+        public ItemId ItemId { get; set; }
 
         public decimal Quantity { get; }
 
-        public ElementInfo(ProductId productId, decimal quantity)
+        public ElementInfo(ProductInfo productInfo, ItemId itemId, decimal quantity)
         {
-            ProductId = productId;
+            ProductInfo = productInfo;
+            ItemId = itemId;
             Quantity = quantity;
         }
     }

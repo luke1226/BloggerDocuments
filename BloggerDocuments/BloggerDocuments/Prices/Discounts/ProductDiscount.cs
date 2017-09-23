@@ -4,15 +4,15 @@ namespace BloggerDocuments.Prices.Discounts
 {
     public class ProductDiscount
     {
-        public ProductId ProductId { get; }
+        public ProductInfo ProductInfo { get; }
 
         public decimal Quantity { get; }
 
         public decimal Value { get; }
 
-        public ProductDiscount(ProductId productId, decimal quantity, decimal value)
+        public ProductDiscount(ProductInfo productInfo, decimal quantity, decimal value)
         {
-            ProductId = productId;
+            ProductInfo = productInfo;
             Quantity = quantity;
             Value = value;
         }

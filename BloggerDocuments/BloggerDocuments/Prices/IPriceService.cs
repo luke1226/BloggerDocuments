@@ -2,6 +2,6 @@
 {
     public interface IPriceService
     {
-        decimal GetPrice(string productId);
+        decimal GetPrice(int productId);
     }
 }

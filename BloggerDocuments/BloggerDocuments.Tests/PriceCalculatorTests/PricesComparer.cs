@@ -3,11 +3,11 @@ using BloggerDocuments.Prices;
 
 namespace BloggerDocuments.Tests.PriceCalculatorTests
 {
-    class PricesComparer : IEqualityComparer<ProductPrice>
+    class PricesComparer : IEqualityComparer<ElementPrice>
     {
-        public bool Equals(ProductPrice x, ProductPrice y)
+        public bool Equals(ElementPrice x, ElementPrice y)
         {
-            if (Equals(x.ProductId, y.ProductId)
+            if (Equals(x.ItemId, y.ItemId)
                 &&
                 x.Value == y.Value)
             {
@@ -17,7 +17,7 @@ namespace BloggerDocuments.Tests.PriceCalculatorTests
             return false;
         }
 
-        public int GetHashCode(ProductPrice obj)
+        public int GetHashCode(ElementPrice obj)
         {
             return obj.GetHashCode();
         }

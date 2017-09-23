@@ -5,9 +5,9 @@ namespace BloggerDocuments.Prices
 {
     public class PricingPlan
     {
-        public List<ProductPrice> Prices { get; }
+        public List<ElementPrice> Prices { get; }
 
-        public PricingPlan(IEnumerable<ProductPrice> prices)
+        public PricingPlan(IEnumerable<ElementPrice> prices)
         {
             Prices = prices.ToList();
         }

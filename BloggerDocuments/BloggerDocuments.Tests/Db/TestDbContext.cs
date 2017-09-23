@@ -53,7 +53,7 @@ namespace BloggerDocuments.Tests.Db
                 salesOrderItems.Add(
                     new SalesOrderItemEntity()
                     {
-                        ProductId = prodId.Id,
+                        ProductInfo = prodId.Info,
                         ProductName = item.Name,
                         Price = item.Price,
                         Quantity = item.Quantity,

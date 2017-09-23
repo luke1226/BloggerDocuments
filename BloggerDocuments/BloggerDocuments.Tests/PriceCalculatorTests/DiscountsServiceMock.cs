@@ -6,14 +6,14 @@ namespace BloggerDocuments.Tests.PriceCalculatorTests
 {
     class DiscountsServiceMock : IDiscountsService
     {
-        private readonly List<DiscountInfo> _discountStructure;
+        private readonly List<BundleInfo> _discountStructure;
 
-        public DiscountsServiceMock(IEnumerable<DiscountInfo> discountInfos)
+        public DiscountsServiceMock(IEnumerable<BundleInfo> discountInfos)
         {
             _discountStructure = discountInfos.ToList();
         }
 
-        public List<DiscountInfo> GetDiscountStructure()
+        public List<BundleInfo> GetBundleStructure()
         {
             return _discountStructure;
         }
