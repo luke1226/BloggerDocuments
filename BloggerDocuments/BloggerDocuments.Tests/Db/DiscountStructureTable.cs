@@ -16,9 +16,9 @@ namespace BloggerDocuments.Tests.Db
             _discountStructure = new List<BundleInfo>();
         }
 
-        public void Add(Action<DiscountInfoAssembler> discount)
+        public void Add(Action<BundleInfoAssembler> discount)
         {
-            var dia = new DiscountInfoAssembler(_object.Products);
+            var dia = new BundleInfoAssembler(_object.Products);
             discount(dia);
             var di = dia.Build();
             _discountStructure.Add(di);

@@ -4,18 +4,18 @@ using BloggerDocuments.Products;
 
 namespace BloggerDocuments.Tests.Assemblers
 {
-    class DiscountInfoAssembler
+    class BundleInfoAssembler
     {
         private readonly Dictionary<string, Product> _products;
         private readonly BundleInfo _bundleInfo;
 
-        public DiscountInfoAssembler(Dictionary<string, Product> products)
+        public BundleInfoAssembler(Dictionary<string, Product> products)
         {
             _products = products;
             _bundleInfo = new BundleInfo(new List<ProductDiscount>());
         }
 
-        public DiscountInfoAssembler AddProduct(string name, decimal quantity, decimal discountValue)
+        public BundleInfoAssembler AddProduct(string name, decimal quantity, decimal discountValue)
         {
             var product = _products[name];
 
@@ -25,7 +25,7 @@ namespace BloggerDocuments.Tests.Assemblers
             return this;
         }
 
-        public DiscountInfoAssembler AddProduct(string name, decimal discountValue)
+        public BundleInfoAssembler AddProduct(string name, decimal discountValue)
         {
             return AddProduct(name, 1, discountValue);
         }
