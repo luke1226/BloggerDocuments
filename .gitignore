@@ -6,3 +6,7 @@
 *.suo
 /*/*/obj
 /*/*/bin
+BloggerDocuments/.vs/BloggerDocuments/v15/.suo
+*.ide
+*.ide
+BloggerDocuments/BloggerDocuments.Tests/obj/project.assets.json

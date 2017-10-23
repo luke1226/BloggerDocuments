@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using BloggerDocuments.Database;
 using BloggerDocuments.Documents;
+using BloggerDocuments.Logging;
 using BloggerDocuments.Prices;
 using BloggerDocuments.Prices.Discounts;
 
@@ -15,6 +16,8 @@ namespace BloggerDocuments.Factories
         public IReceiptRepository ReceiptRepository { get; set; }
 
         public ISalesOrderRepository SalesOrderRepository { get; set; }
+
+        public ILogger Logger { get; set; }
 
         public Receipt New()
         {
@@ -35,7 +38,10 @@ namespace BloggerDocuments.Factories
             return
                 new Receipt()
                 {
-                    PriceCalculator = new PriceOnlyForNewElementCalculator(PriceService, DiscountsService, itemsIds),
+                    PriceCalculator =
+            new LoggingPriceCalculator(
+                new PriceOnlyForNewElementCalculator(
+                    new PriceCalculator(PriceService, DiscountsService), itemsIds), Logger),
                     Items = items,
                     Value = salesOrderEntity.Value
                 };

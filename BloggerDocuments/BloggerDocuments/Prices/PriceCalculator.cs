@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using BloggerDocuments.Documents;
 using BloggerDocuments.Prices.Discounts;
 
 namespace BloggerDocuments.Prices
@@ -8,18 +9,27 @@ namespace BloggerDocuments.Prices
     {
         private readonly IPriceService _priceService;
         private readonly IDiscountsService _discountsService;
+        private readonly List<ItemId> _oldItems;
 
-        public PriceCalculator(IPriceService priceService, IDiscountsService discountsService)
+        public PriceCalculator(IPriceService priceService, IDiscountsService discountsService,
+            IEnumerable<ItemId> oldItemsIds)
         {
             _priceService = priceService;
             _discountsService = discountsService;
+            _oldItems = oldItemsIds.ToList();
         }
 
-        public PricingPlan Calculate(IEnumerable<ElementInfo> elements)
+        public PriceCalculator(IPriceService priceService, IDiscountsService discountsService)
+            : this(priceService, discountsService, new List<ItemId>())
+        {
+
+        }
+
+        public virtual PricingPlan Calculate(IEnumerable<ElementInfo> elements)
         {
             var bundleStructure = _discountsService.GetBundleStructure();
 
-            var newElements = new List<ElementInfo>(elements);
+            var newElements = elements.Where(x => !_oldItems.Contains(x.ItemId)).ToList();
 
             BundleInfo bundleInfo = null;
 
