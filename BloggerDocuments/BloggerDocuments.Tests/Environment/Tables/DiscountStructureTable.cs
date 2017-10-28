@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using BloggerDocuments.Prices.Discounts;
 using BloggerDocuments.Tests.Assemblers;
 
-namespace BloggerDocuments.Tests.Db
+namespace BloggerDocuments.Tests.Environment.Tables
 {
-    internal class DiscountStructureTable
+    public class DiscountStructureTable
     {
-        private readonly TestDbObject _object;
+        private readonly TestEnvironmentObject _object;
         private readonly List<BundleInfo> _discountStructure;
 
-        public DiscountStructureTable(TestDbObject @object)
+        public DiscountStructureTable(TestEnvironmentObject @object)
         {
             _object = @object;
             _discountStructure = new List<BundleInfo>();

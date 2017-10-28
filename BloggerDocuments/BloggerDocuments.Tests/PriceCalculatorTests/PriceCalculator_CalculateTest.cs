@@ -1,20 +1,20 @@
 ﻿using System.Collections.Generic;
 using BloggerDocuments.Prices;
-using BloggerDocuments.Tests.Db;
+using BloggerDocuments.Tests.Environment;
 using BloggerDocuments.Tests.Mocks;
 using Xunit;
 using Assert = Xunit.Assert;
 
 namespace BloggerDocuments.Tests.PriceCalculatorTests
 {
-    public class PriceCalculator_CalculateTest
+    public class PriceCalculator_CalculateTest : TestClassWithEnvironment
     {
         [Fact]
         public void ShouldReturnProperPricingPlanWhenProductsInBundle()
         {
             //Arrange
-            var db =
-                TestDb.Add(
+            var env =
+                TestEnvironment.Create(
                     c =>
                     {
                         c.Products.Add("A1", p => p.WithPrice(10));
@@ -25,19 +25,19 @@ namespace BloggerDocuments.Tests.PriceCalculatorTests
                         c.DiscountStructure.Add(d => d.AddProduct("A1", 0.5m).AddProduct("A3", 0.5m));
                     });
 
-            var priceCalculator = new PriceCalculator(db.PriceService, db.DiscountsService);
+            var priceCalculator = new PriceCalculator(env.PriceService, env.DiscountsService);
             var elements =
                 new List<ElementInfo>()
                 {
-                    db.ElementInfos.Get("A2"),
-                    db.ElementInfos.Get("A1")
+                    env.ElementInfos.Get("A2"),
+                    env.ElementInfos.Get("A1")
                 };
 
             var expectedPrices =
                 new List<ElementPrice>()
                 {
-                    TestElementPrices.Get(db.ElementInfos.Get("A1"), 9m),
-                    TestElementPrices.Get(db.ElementInfos.Get("A2"), 4.5m)
+                    TestElementPrices.Get(env.ElementInfos.Get("A1"), 9m),
+                    TestElementPrices.Get(env.ElementInfos.Get("A2"), 4.5m)
                 };
 
 
@@ -54,8 +54,8 @@ namespace BloggerDocuments.Tests.PriceCalculatorTests
         public void ShouldReturnProperPricingPlanWhenProductsInSecondBundle()
         {
             //Arrange
-            var db =
-                TestDb.Add(
+            var env =
+                TestEnvironment.Create(
                     c =>
                     {
                         c.Products.Add("A1", p => p.WithPrice(10));
@@ -67,21 +67,21 @@ namespace BloggerDocuments.Tests.PriceCalculatorTests
                         c.DiscountStructure.Add(d => d.AddProduct("A1", 0.1m).AddProduct("A3", 0.5m).AddProduct("A4", 0.5m));
                     });
 
-            var priceCalculator = new PriceCalculator(db.PriceService, db.DiscountsService);
+            var priceCalculator = new PriceCalculator(env.PriceService, env.DiscountsService);
             var elements =
                 new List<ElementInfo>()
                 {
-                    db.ElementInfos.Get("A1"),
-                    db.ElementInfos.Get("A4"),
-                    db.ElementInfos.Get("A3")
+                    env.ElementInfos.Get("A1"),
+                    env.ElementInfos.Get("A4"),
+                    env.ElementInfos.Get("A3")
                 };
 
             var expectedPrices =
                 new List<ElementPrice>()
                 {
-                    TestElementPrices.Get(db.ElementInfos.Get("A1"), 9m),
-                    TestElementPrices.Get(db.ElementInfos.Get("A3"), 1m),
-                    TestElementPrices.Get(db.ElementInfos.Get("A4"), 0.5m),
+                    TestElementPrices.Get(env.ElementInfos.Get("A1"), 9m),
+                    TestElementPrices.Get(env.ElementInfos.Get("A3"), 1m),
+                    TestElementPrices.Get(env.ElementInfos.Get("A4"), 0.5m),
                 };
 
 
@@ -98,8 +98,8 @@ namespace BloggerDocuments.Tests.PriceCalculatorTests
         public void ShouldReturnProperPricingPlanWhenProductsNotInBundle()
         {
             //Arrange
-            var db =
-                TestDb.Add(
+            var env =
+                TestEnvironment.Create(
                     c =>
                     {
                         c.Products.Add("A1", p => p.WithPrice(10));
@@ -110,19 +110,19 @@ namespace BloggerDocuments.Tests.PriceCalculatorTests
                         c.DiscountStructure.Add(d => d.AddProduct("A1", 0.5m).AddProduct("A3", 0.5m));
                     });
 
-            var priceCalculator = new PriceCalculator(db.PriceService, db.DiscountsService);
+            var priceCalculator = new PriceCalculator(env.PriceService, env.DiscountsService);
             var elements =
                 new List<ElementInfo>()
                 {
-                    db.ElementInfos.Get("A1"),
-                    db.ElementInfos.Get("A2")
+                    env.ElementInfos.Get("A1"),
+                    env.ElementInfos.Get("A2")
                 };
 
             var expectedPrices =
                 new List<ElementPrice>()
                 {
-                    TestElementPrices.Get(db.ElementInfos.Get("A1"), 10),
-                    TestElementPrices.Get(db.ElementInfos.Get("A2"), 5)
+                    TestElementPrices.Get(env.ElementInfos.Get("A1"), 10),
+                    TestElementPrices.Get(env.ElementInfos.Get("A2"), 5)
                 };
 
 

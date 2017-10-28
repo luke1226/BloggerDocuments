@@ -5,32 +5,16 @@ using BloggerDocuments.Database.Entities;
 using BloggerDocuments.Tests.Assemblers;
 using NSubstitute;
 
-namespace BloggerDocuments.Tests.Db
+namespace BloggerDocuments.Tests.Environment.Tables
 {
-    internal class TestDbContext
+    public class DocumentsTable
     {
-        public ProductsTable Products { get; }
-
-        public DiscountStructureTable DiscountStructure { get; }
-
-        public DocumentsTable Documents { get; }
-
-        public TestDbContext(TestDbObject @object)
-        {
-            Products = new ProductsTable(@object);
-            DiscountStructure = new DiscountStructureTable(@object);
-            Documents = new DocumentsTable(@object);
-        }
-    }
-
-    internal class DocumentsTable
-    {
-        private readonly TestDbObject _object;
+        private readonly TestEnvironmentObject _object;
         private static int _currentDocId;
 
         public List<SalesOrderEntity> SalesOrderEntities { get; }
 
-        public DocumentsTable(TestDbObject @object)
+        public DocumentsTable(TestEnvironmentObject @object)
         {
             _object = @object;
             SalesOrderEntities = new List<SalesOrderEntity>();

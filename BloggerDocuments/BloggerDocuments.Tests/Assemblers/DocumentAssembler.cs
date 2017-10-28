@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace BloggerDocuments.Tests.Assemblers
 {
-    class DocumentAssembler
+    public class DocumentAssembler
     {
         public List<DocumentItemAssembler> DocumentItemAssemblers { get; }
 

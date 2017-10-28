@@ -1,5 +1,4 @@
-﻿using BloggerDocuments.Factories;
-using BloggerDocuments.Tests.Db;
+﻿using BloggerDocuments.Tests.Environment;
 using Xunit;
 
 namespace BloggerDocuments.Tests.FactoriesTests
@@ -10,8 +9,8 @@ namespace BloggerDocuments.Tests.FactoriesTests
         public void ShouldSplitAndAddItemsOfBundleOnAddItem()
         {
             //Arrange
-            var db =
-                TestDb.Add(
+            var env =
+                TestEnvironment.Create(
                     c =>
                     {
                         c.Products.Add("A1", p => p.WithPrice(10));
@@ -20,19 +19,13 @@ namespace BloggerDocuments.Tests.FactoriesTests
                         c.DiscountStructure.Add(d => d.AddProduct("A1", 1, 0.1m).AddProduct("A2", 1, 0.1m));
                     });
 
-            var receiptFactory = new ReceiptFactory()
-            {
-                PriceService = db.PriceService,
-                DiscountsService = db.DiscountsService,
-                SalesOrderRepository = db.SalesOrderRepository
-            };
-
+            var receiptFactory = env.DocumentFactories.ReceiptFactory();
             var receipt = receiptFactory.New();
-            receipt.AddItem(db.Products["A1"], 2);
+            receipt.AddItem(env.Products["A1"], 2);
 
 
             //Act
-            receipt.AddItem(db.Products["A2"]);
+            receipt.AddItem(env.Products["A2"]);
 
 
             //Assert

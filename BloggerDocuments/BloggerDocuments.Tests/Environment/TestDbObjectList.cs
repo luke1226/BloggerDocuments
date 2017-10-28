@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Xunit;
 
-namespace BloggerDocuments.Tests.Db
+namespace BloggerDocuments.Tests.Environment
 {
     public class TestDbObjectList<TKey, TItem>
     {

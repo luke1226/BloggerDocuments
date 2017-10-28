@@ -1,35 +1,29 @@
-﻿using BloggerDocuments.Factories;
-using BloggerDocuments.Tests.Db;
+﻿using BloggerDocuments.Tests.Environment;
 using Xunit;
 
 namespace BloggerDocuments.Tests.FactoriesTests
 {
-    public class ReceiptFactory_AddItem_PricingPlanTest
+    public class ReceiptFactory_AddItem_PricingPlanTest : TestClassWithEnvironment
     {
         [Fact]
         public void ShouldReturnPricingPlanForAllItemsInNewMode()
         {
             //Arrange
-            var db =
-                TestDb.Add(
+            var env =
+                TestEnvironment.Create(
                     c =>
                     {
                         c.Products.Add("A1", p => p.WithPrice(10));
                         c.Products.Add("A2", p => p.WithPrice(50));
                     });
 
-            var receiptFactory = new ReceiptFactory()
-            {
-                PriceService = db.PriceService,
-                DiscountsService = db.DiscountsService
-            };
-
+            var receiptFactory = env.DocumentFactories.ReceiptFactory();
             var receipt = receiptFactory.New();
 
 
             //Act
-            receipt.AddItem(db.Products["A1"]);
-            receipt.AddItem(db.Products["A2"]);
+            receipt.AddItem(env.Products["A1"]);
+            receipt.AddItem(env.Products["A2"]);
 
 
             //Assert
@@ -40,8 +34,8 @@ namespace BloggerDocuments.Tests.FactoriesTests
         public void ShouldReturnPricingPlanForOnlyNewItemsInGenerateFromReceiptMode()
         {
             //Arrange
-            var db =
-                TestDb.Add(
+            var env =
+                TestEnvironment.Create(
                     c =>
                     {
                         c.Products.Add("A1", p => p.WithPrice(10));
@@ -58,18 +52,12 @@ namespace BloggerDocuments.Tests.FactoriesTests
                             });
                     });
 
-            var receiptFactory = new ReceiptFactory()
-            {
-                PriceService = db.PriceService,
-                DiscountsService = db.DiscountsService,
-                SalesOrderRepository = db.SalesOrderRepository
-            };
-
-            var receipt = receiptFactory.GenerateFromSalesOrder(db.SalesOrderEntities[0]);
+            var receiptFactory = env.DocumentFactories.ReceiptFactory();
+            var receipt = receiptFactory.GenerateFromSalesOrder(env.SalesOrderEntities[0]);
 
 
             //Act
-            receipt.AddItem(db.Products["A2"]);
+            receipt.AddItem(env.Products["A2"]);
 
 
             //Assert
@@ -80,8 +68,8 @@ namespace BloggerDocuments.Tests.FactoriesTests
         public void ShouldReturnPricingPlanForOnlyNewItemsInGenerateFromReceiptModeWhenSameProductsAdded()
         {
             //Arrange
-            var db =
-                TestDb.Add(
+            var env =
+                TestEnvironment.Create(
                     c =>
                     {
                         c.Products.Add("A1", p => p.WithPrice(10));
@@ -99,18 +87,12 @@ namespace BloggerDocuments.Tests.FactoriesTests
                             });
                     });
 
-            var receiptFactory = new ReceiptFactory()
-            {
-                PriceService = db.PriceService,
-                DiscountsService = db.DiscountsService,
-                SalesOrderRepository = db.SalesOrderRepository
-            };
-
-            var receipt = receiptFactory.GenerateFromSalesOrder(db.SalesOrderEntities[0]);
+            var receiptFactory = env.DocumentFactories.ReceiptFactory();
+            var receipt = receiptFactory.GenerateFromSalesOrder(env.SalesOrderEntities[0]);
 
 
             //Act
-            receipt.AddItem(db.Products["A2"]);
+            receipt.AddItem(env.Products["A2"]);
 
 
             //Assert

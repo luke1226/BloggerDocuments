@@ -4,14 +4,14 @@ using BloggerDocuments.Tests.Assemblers;
 using BloggerDocuments.Tests.Mocks;
 using NSubstitute;
 
-namespace BloggerDocuments.Tests.Db
+namespace BloggerDocuments.Tests.Environment.Tables
 {
-    internal class ProductsTable
+    public class ProductsTable
     {
-        private readonly TestDbObject _object;
+        private readonly TestEnvironmentObject _object;
         private int _currentProductId;
 
-        public ProductsTable(TestDbObject @object)
+        public ProductsTable(TestEnvironmentObject @object)
         {
             _object = @object;
         }

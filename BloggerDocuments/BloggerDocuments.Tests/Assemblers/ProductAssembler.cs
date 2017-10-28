@@ -1,6 +1,6 @@
 namespace BloggerDocuments.Tests.Assemblers
 {
-    internal class ProductAssembler
+    public class ProductAssembler
     {
         public decimal Price { get; private set; }
 

@@ -4,7 +4,7 @@ using BloggerDocuments.Products;
 
 namespace BloggerDocuments.Tests.Assemblers
 {
-    class BundleInfoAssembler
+    public class BundleInfoAssembler
     {
         private readonly Dictionary<string, Product> _products;
         private readonly BundleInfo _bundleInfo;

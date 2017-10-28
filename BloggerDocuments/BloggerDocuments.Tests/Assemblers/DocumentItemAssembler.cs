@@ -1,6 +1,6 @@
 ﻿namespace BloggerDocuments.Tests.Assemblers
 {
-    class DocumentItemAssembler
+    public class DocumentItemAssembler
     {
         public string Name { get; private set; }
 

@@ -2,7 +2,7 @@
 
 namespace BloggerDocuments.Tests.Assemblers
 {
-    class DocumentAssemblerWithItemsContext
+    public class DocumentAssemblerWithItemsContext
     {
         public List<DocumentItemAssembler> DocumentItemAssemblers { get; set; }
 
