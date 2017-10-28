@@ -3,7 +3,7 @@ using Xunit;
 
 namespace BloggerDocuments.Tests.FactoriesTests
 {
-    public class ReceiptFactory_AddItem_PricingPlanTest : TestClassWithEnvironment
+    public class ReceiptFactory_AddItem_PricingPlanTest : TestClassBase
     {
         [Fact]
         public void ShouldReturnPricingPlanForAllItemsInNewMode()

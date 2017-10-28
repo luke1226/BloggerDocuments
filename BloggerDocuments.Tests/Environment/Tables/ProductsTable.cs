@@ -8,10 +8,10 @@ namespace BloggerDocuments.Tests.Environment.Tables
 {
     public class ProductsTable
     {
-        private readonly TestEnvironmentObject _object;
+        private readonly ITestEnvironment _object;
         private int _currentProductId;
 
-        public ProductsTable(TestEnvironmentObject @object)
+        public ProductsTable(ITestEnvironment @object)
         {
             _object = @object;
         }

@@ -1,6 +1,6 @@
 ﻿namespace BloggerDocuments.Tests.Environment
 {
-    public abstract class TestClassWithEnvironment
+    public abstract class TestClassBase
     {
         private ITestEnvironment _testEnvironment;
 

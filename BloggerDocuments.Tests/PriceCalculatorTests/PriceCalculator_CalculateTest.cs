@@ -7,7 +7,7 @@ using Assert = Xunit.Assert;
 
 namespace BloggerDocuments.Tests.PriceCalculatorTests
 {
-    public class PriceCalculator_CalculateTest : TestClassWithEnvironment
+    public class PriceCalculator_CalculateTest : TestClassBase
     {
         [Fact]
         public void ShouldReturnProperPricingPlanWhenProductsInBundle()

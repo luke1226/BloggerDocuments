@@ -11,7 +11,7 @@ using NSubstitute;
 
 namespace BloggerDocuments.Tests.Environment
 {
-    public class TestEnvironmentObject : ITestEnvironment
+    class TestEnvironmentObject : ITestEnvironment
     {
         public IPriceService PriceService { get; }
 

@@ -3,7 +3,7 @@ using Xunit;
 
 namespace BloggerDocuments.Tests.FactoriesTests
 {
-    public class ReceiptFactory_New_SplitItemsTest
+    public class ReceiptFactory_New_SplitItemsTest : TestClassBase
     {
         [Fact]
         public void ShouldSplitAndAddItemsOfBundleOnAddItem()

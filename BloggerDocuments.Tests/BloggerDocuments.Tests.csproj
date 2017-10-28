@@ -82,7 +82,7 @@
     <Compile Include="Environment\Tables\DiscountStructureTable.cs" />
     <Compile Include="Environment\Tables\DocumentsTable.cs" />
     <Compile Include="Environment\Tables\ProductsTable.cs" />
-    <Compile Include="Environment\TestClassWithEnvironment.cs" />
+    <Compile Include="Environment\TestClassBase.cs" />
     <Compile Include="Environment\TestDbObjectList.cs" />
     <Compile Include="Environment\TestEnvironment.cs" />
     <Compile Include="Environment\TestEnvironmentBuilder.cs" />

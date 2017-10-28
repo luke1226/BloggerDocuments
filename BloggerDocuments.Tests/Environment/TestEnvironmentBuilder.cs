@@ -10,7 +10,7 @@ namespace BloggerDocuments.Tests.Environment
 
         public DocumentsTable Documents { get; }
 
-        public TestEnvironmentBuilder(TestEnvironmentObject @object)
+        public TestEnvironmentBuilder(ITestEnvironment @object)
         {
             Products = new ProductsTable(@object);
             DiscountStructure = new DiscountStructureTable(@object);

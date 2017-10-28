@@ -7,10 +7,10 @@ namespace BloggerDocuments.Tests.Environment.Tables
 {
     public class DiscountStructureTable
     {
-        private readonly TestEnvironmentObject _object;
+        private readonly ITestEnvironment _object;
         private readonly List<BundleInfo> _discountStructure;
 
-        public DiscountStructureTable(TestEnvironmentObject @object)
+        public DiscountStructureTable(ITestEnvironment @object)
         {
             _object = @object;
             _discountStructure = new List<BundleInfo>();
