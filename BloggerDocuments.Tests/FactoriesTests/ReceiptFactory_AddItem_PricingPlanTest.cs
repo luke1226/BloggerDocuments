@@ -1,4 +1,5 @@
-﻿using BloggerDocuments.Tests.Environment;
+﻿using System.Linq;
+using BloggerDocuments.Tests.Environment;
 using Xunit;
 
 namespace BloggerDocuments.Tests.FactoriesTests
@@ -13,8 +14,8 @@ namespace BloggerDocuments.Tests.FactoriesTests
                 TestEnvironment.Create(
                     c =>
                     {
-                        c.Products.Add("A1", p => p.WithPrice(10));
-                        c.Products.Add("A2", p => p.WithPrice(50));
+                        c.Products.AddOrUpdate("A1", p => p.WithPrice(10));
+                        c.Products.AddOrUpdate("A2", p => p.WithPrice(50));
                     });
 
             var receiptFactory = env.DocumentFactories.ReceiptFactory();
@@ -22,8 +23,8 @@ namespace BloggerDocuments.Tests.FactoriesTests
 
 
             //Act
-            receipt.AddItem(env.Products["A1"]);
-            receipt.AddItem(env.Products["A2"]);
+            receipt.AddItem(env.Products.Get("A1"));
+            receipt.AddItem(env.Products.Get("A2"));
 
 
             //Assert
@@ -38,26 +39,20 @@ namespace BloggerDocuments.Tests.FactoriesTests
                 TestEnvironment.Create(
                     c =>
                     {
-                        c.Products.Add("A1", p => p.WithPrice(10));
-                        c.Products.Add("A2", p => p.WithPrice(50));
+                        c.Products.AddOrUpdate("A1", p => p.WithPrice(10));
+                        c.Products.AddOrUpdate("A2", p => p.WithPrice(50));
 
-                        c.Documents.AddSalesOrder(
-                            doc =>
-                            {
-                                doc.WithItems(
-                                    itemsContext =>
-                                    {
-                                        itemsContext.Add("A1", 5, 1);
-                                    });
-                            });
+                        c.Documents
+                            .AddSalesOrder(doc => doc
+                                .WithItems(itemsContext => itemsContext.Add("A1", 5, 1)));
                     });
 
             var receiptFactory = env.DocumentFactories.ReceiptFactory();
-            var receipt = receiptFactory.GenerateFromSalesOrder(env.SalesOrderEntities[0]);
+            var receipt = receiptFactory.GenerateFromSalesOrder(env.SalesOrderEntities.First());
 
 
             //Act
-            receipt.AddItem(env.Products["A2"]);
+            receipt.AddItem(env.Products.Get("A2"));
 
 
             //Assert
@@ -72,27 +67,23 @@ namespace BloggerDocuments.Tests.FactoriesTests
                 TestEnvironment.Create(
                     c =>
                     {
-                        c.Products.Add("A1", p => p.WithPrice(10));
-                        c.Products.Add("A2", p => p.WithPrice(5));
+                        c.Products.AddOrUpdate("A1", p => p.WithPrice(10));
+                        c.Products.AddOrUpdate("A2", p => p.WithPrice(5));
 
-                        c.Documents.AddSalesOrder(
-                            doc =>
-                            {
-                                doc.WithItems(
-                                    itemsContext =>
-                                    {
-                                        itemsContext.Add("A1", 5, 1);
-                                        itemsContext.Add("A2", 2, 1);
-                                    });
-                            });
+                        c.Documents
+                            .AddSalesOrder(doc => doc
+                                .WithItems(itemsContext => itemsContext
+                                    .Add("A1", 5, 1)
+                                    .Add("A2", 2, 1)));
                     });
 
+
             var receiptFactory = env.DocumentFactories.ReceiptFactory();
-            var receipt = receiptFactory.GenerateFromSalesOrder(env.SalesOrderEntities[0]);
+            var receipt = receiptFactory.GenerateFromSalesOrder(env.SalesOrderEntities.First());
 
 
             //Act
-            receipt.AddItem(env.Products["A2"]);
+            receipt.AddItem(env.Products.Get("A2"));
 
 
             //Assert

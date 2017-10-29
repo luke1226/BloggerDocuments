@@ -3,21 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using BloggerDocuments.Database.Entities;
 using BloggerDocuments.Tests.Assemblers;
+using BloggerDocuments.Tests.Environment.Mocks;
 using NSubstitute;
 
 namespace BloggerDocuments.Tests.Environment.Tables
 {
     public class DocumentsTable
     {
-        private readonly ITestEnvironment _object;
+        private readonly ProductsTable _productsTable;
+        private readonly ITestMocks _mocks;
         private static int _currentDocId;
 
-        public List<SalesOrderEntity> SalesOrderEntities { get; }
+        public List<int> SalesOrderEntities { get; }
 
-        public DocumentsTable(ITestEnvironment @object)
+        public DocumentsTable(ProductsTable productsTable, ITestMocks mocks)
         {
-            _object = @object;
-            SalesOrderEntities = new List<SalesOrderEntity>();
+            _productsTable = productsTable;
+            _mocks = mocks;
+            SalesOrderEntities = new List<int>();
         }
 
         public void AddSalesOrder(Action<DocumentAssembler> document)
@@ -32,7 +35,7 @@ namespace BloggerDocuments.Tests.Environment.Tables
             var salesOrderItems = new List<SalesOrderItemEntity>();
             foreach (var item in items)
             {
-                var prodId = _object.Products[item.Name];
+                var prodId = _productsTable.Get(item.Name);
 
                 salesOrderItems.Add(
                     new SalesOrderItemEntity()
@@ -52,8 +55,8 @@ namespace BloggerDocuments.Tests.Environment.Tables
                 Value = salesOrderItems.Sum(x => x.Value)
             };
 
-            _object.SalesOrderEntities.Add(salesOrderEntity.Id);
-            _object.SalesOrderRepository.Get(salesOrderEntity.Id).Returns(salesOrderEntity);
+            SalesOrderEntities.Add(salesOrderEntity.Id);
+            _mocks.SalesOrderRepository.Get(salesOrderEntity.Id).Returns(salesOrderEntity);
         }
     }
 }

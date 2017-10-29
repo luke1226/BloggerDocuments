@@ -17,15 +17,15 @@ namespace BloggerDocuments.Tests.PriceCalculatorTests
                 TestEnvironment.Create(
                     c =>
                     {
-                        c.Products.Add("A1", p => p.WithPrice(10));
-                        c.Products.Add("A2", p => p.WithPrice(5));
-                        c.Products.Add("A3", p => p.WithPrice(1));
+                        c.Products.AddOrUpdate("A1", p => p.WithPrice(10));
+                        c.Products.AddOrUpdate("A2", p => p.WithPrice(5));
+                        c.Products.AddOrUpdate("A3", p => p.WithPrice(1));
 
                         c.DiscountStructure.Add(d => d.AddProduct("A1", 0.1m).AddProduct("A2", 0.1m));
                         c.DiscountStructure.Add(d => d.AddProduct("A1", 0.5m).AddProduct("A3", 0.5m));
                     });
 
-            var priceCalculator = new PriceCalculator(env.PriceService, env.DiscountsService);
+            var priceCalculator = new PriceCalculator(env.Mocks.PriceService, env.Mocks.DiscountsService);
             var elements =
                 new List<ElementInfo>()
                 {
@@ -58,16 +58,16 @@ namespace BloggerDocuments.Tests.PriceCalculatorTests
                 TestEnvironment.Create(
                     c =>
                     {
-                        c.Products.Add("A1", p => p.WithPrice(10));
-                        c.Products.Add("A2", p => p.WithPrice(5));
-                        c.Products.Add("A3", p => p.WithPrice(2));
-                        c.Products.Add("A4", p => p.WithPrice(1));
+                        c.Products.AddOrUpdate("A1", p => p.WithPrice(10));
+                        c.Products.AddOrUpdate("A2", p => p.WithPrice(5));
+                        c.Products.AddOrUpdate("A3", p => p.WithPrice(2));
+                        c.Products.AddOrUpdate("A4", p => p.WithPrice(1));
 
                         c.DiscountStructure.Add(d => d.AddProduct("A1", 0.1m).AddProduct("A2", 0.1m));
                         c.DiscountStructure.Add(d => d.AddProduct("A1", 0.1m).AddProduct("A3", 0.5m).AddProduct("A4", 0.5m));
                     });
 
-            var priceCalculator = new PriceCalculator(env.PriceService, env.DiscountsService);
+            var priceCalculator = new PriceCalculator(env.Mocks.PriceService, env.Mocks.DiscountsService);
             var elements =
                 new List<ElementInfo>()
                 {
@@ -102,15 +102,15 @@ namespace BloggerDocuments.Tests.PriceCalculatorTests
                 TestEnvironment.Create(
                     c =>
                     {
-                        c.Products.Add("A1", p => p.WithPrice(10));
-                        c.Products.Add("A2", p => p.WithPrice(5));
-                        c.Products.Add("A3", p => p.WithPrice(1));
+                        c.Products.AddOrUpdate("A1", p => p.WithPrice(10));
+                        c.Products.AddOrUpdate("A2", p => p.WithPrice(5));
+                        c.Products.AddOrUpdate("A3", p => p.WithPrice(1));
 
                         c.DiscountStructure.Add(d => d.AddProduct("A1", 0.1m).AddProduct("A2", 0.1m).AddProduct("A3", 0.2m));
                         c.DiscountStructure.Add(d => d.AddProduct("A1", 0.5m).AddProduct("A3", 0.5m));
                     });
 
-            var priceCalculator = new PriceCalculator(env.PriceService, env.DiscountsService);
+            var priceCalculator = new PriceCalculator(env.Mocks.PriceService, env.Mocks.DiscountsService);
             var elements =
                 new List<ElementInfo>()
                 {

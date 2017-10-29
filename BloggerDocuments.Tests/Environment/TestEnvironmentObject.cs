@@ -1,75 +1,78 @@
 ﻿using System;
 using System.Collections.Generic;
-using BloggerDocuments.Database;
 using BloggerDocuments.Documents;
-using BloggerDocuments.Logging;
 using BloggerDocuments.Prices;
-using BloggerDocuments.Prices.Discounts;
-using BloggerDocuments.Products;
+using BloggerDocuments.Tests.Environment.Mocks;
 using BloggerDocuments.Tests.Environment.Providers;
-using NSubstitute;
+using BloggerDocuments.Tests.Environment.Tables;
 
 namespace BloggerDocuments.Tests.Environment
 {
     class TestEnvironmentObject : ITestEnvironment
     {
-        public IPriceService PriceService { get; }
-
-        public IDiscountsService DiscountsService { get; set; }
-
-        public ISalesOrderRepository SalesOrderRepository { get; }
-
-        public ILogger Logger { get; }
+        private readonly ProductsTable _productsTable;
 
 
 
-        public Dictionary<string, Product> Products { get; }
+        public ITestMocks Mocks { get; }
+
+
+
+        public ProductsProvider Products { get; }
 
         public TestDbObjectList<string, ElementInfo> ElementInfos { get; }
 
         public Dictionary<string, ElementPrice> Prices { get; }
 
-        public List<int> SalesOrderEntities { get; }
+        public IReadOnlyCollection<int> SalesOrderEntities { get; }
 
         public DocumentFactoryProvider DocumentFactories { get; }
 
 
 
-        public TestEnvironmentObject()
+        public TestEnvironmentObject(TestEnvironmentCreateContext createContext, ITestMocks mocks)
         {
-            PriceService = Substitute.For<IPriceService>();
-
-            SalesOrderRepository = Substitute.For<ISalesOrderRepository>();
-
-            Logger = Substitute.For<ILogger>();
-
-            Products = new Dictionary<string, Product>();
+            _productsTable = createContext.Products;
 
             ElementInfos = new TestDbObjectList<string, ElementInfo>(
                 k =>
                 {
-                    var p = Products[k];
+                    var p = Products.Get(k);
                     return new ElementInfo(p.Info, ItemId.New(), 1);
                 });
 
             //Prices = new Dictionary<string, ElementPrice>();
 
-            SalesOrderEntities = new List<int>();
+            SalesOrderEntities = createContext.Documents.SalesOrderEntities;
 
             DocumentFactories = new DocumentFactoryProvider(this);
+
+            Products = new ProductsProvider(createContext.Products);
+
+            Mocks = mocks;
         }
 
 
 
-        public ITestEnvironment Create(Action<TestEnvironmentBuilder> context)
+        public ITestEnvironment Create(Action<TestEnvironmentCreateContext> context)
         {
             return TestEnvironment.Create(context);
         }
 
-        public void Add(Action<TestEnvironmentBuilder> context)
+        public void Add(Action<TestEnvironmentAddContext> context)
         {
-            var environmentBuilder = new TestEnvironmentBuilder(this);
-            context(environmentBuilder);
+            var addContextObj = new TestEnvironmentAddContext(_productsTable);
+            context(addContextObj);
+        }
+    }
+
+    public class TestEnvironmentAddContext
+    {
+        public ProductsTable Products { get; }
+
+        public TestEnvironmentAddContext(ProductsTable products)
+        {
+            Products = products;
         }
     }
 }

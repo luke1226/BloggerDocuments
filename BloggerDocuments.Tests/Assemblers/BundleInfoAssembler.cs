@@ -1,15 +1,15 @@
 ﻿using System.Collections.Generic;
 using BloggerDocuments.Prices.Discounts;
-using BloggerDocuments.Products;
+using BloggerDocuments.Tests.Environment.Tables;
 
 namespace BloggerDocuments.Tests.Assemblers
 {
     public class BundleInfoAssembler
     {
-        private readonly Dictionary<string, Product> _products;
+        private readonly ProductsTable _products;
         private readonly BundleInfo _bundleInfo;
 
-        public BundleInfoAssembler(Dictionary<string, Product> products)
+        public BundleInfoAssembler(ProductsTable products)
         {
             _products = products;
             _bundleInfo = new BundleInfo(new List<ProductDiscount>());
@@ -17,7 +17,7 @@ namespace BloggerDocuments.Tests.Assemblers
 
         public BundleInfoAssembler AddProduct(string name, decimal quantity, decimal discountValue)
         {
-            var product = _products[name];
+            var product = _products.Get(name);
 
             _bundleInfo.ProductDiscounts.Add(
                 new ProductDiscount(product.Info, quantity, discountValue));

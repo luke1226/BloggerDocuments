@@ -13,19 +13,19 @@ namespace BloggerDocuments.Tests.FactoriesTests
                 TestEnvironment.Create(
                     c =>
                     {
-                        c.Products.Add("A1", p => p.WithPrice(10));
-                        c.Products.Add("A2", p => p.WithPrice(5));
+                        c.Products.AddOrUpdate("A1", p => p.WithPrice(10));
+                        c.Products.AddOrUpdate("A2", p => p.WithPrice(5));
 
                         c.DiscountStructure.Add(d => d.AddProduct("A1", 1, 0.1m).AddProduct("A2", 1, 0.1m));
                     });
 
             var receiptFactory = env.DocumentFactories.ReceiptFactory();
             var receipt = receiptFactory.New();
-            receipt.AddItem(env.Products["A1"], 2);
+            receipt.AddItem(env.Products.Get("A1"), 2);
 
 
             //Act
-            receipt.AddItem(env.Products["A2"]);
+            receipt.AddItem(env.Products.Get("A2"));
 
 
             //Assert

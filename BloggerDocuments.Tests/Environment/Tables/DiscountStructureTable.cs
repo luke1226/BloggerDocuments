@@ -7,18 +7,18 @@ namespace BloggerDocuments.Tests.Environment.Tables
 {
     public class DiscountStructureTable
     {
-        private readonly ITestEnvironment _object;
+        private readonly ProductsTable _productsTable;
         private readonly List<BundleInfo> _discountStructure;
 
-        public DiscountStructureTable(ITestEnvironment @object)
+        public DiscountStructureTable(ProductsTable productsTable)
         {
-            _object = @object;
+            _productsTable = productsTable;
             _discountStructure = new List<BundleInfo>();
         }
 
         public void Add(Action<BundleInfoAssembler> discount)
         {
-            var dia = new BundleInfoAssembler(_object.Products);
+            var dia = new BundleInfoAssembler(_productsTable);
             discount(dia);
             var di = dia.Build();
             _discountStructure.Add(di);

@@ -1,10 +1,12 @@
 ﻿using BloggerDocuments.Factories;
+using BloggerDocuments.Tests.Environment.Mocks;
 
 namespace BloggerDocuments.Tests.Environment.Providers
 {
     public class DocumentFactoryProvider
     {
         private readonly ITestEnvironment _environment;
+        private ITestMocks Mocks => _environment.Mocks;
 
         public DocumentFactoryProvider(ITestEnvironment environment)
         {
@@ -16,10 +18,10 @@ namespace BloggerDocuments.Tests.Environment.Providers
             return
                 new ReceiptFactory()
                 {
-                    SalesOrderRepository = _environment.SalesOrderRepository,
-                    DiscountsService = _environment.DiscountsService,
-                    PriceService = _environment.PriceService,
-                    Logger = _environment.Logger
+                    SalesOrderRepository = Mocks.SalesOrderRepository,
+                    DiscountsService = Mocks.DiscountsService,
+                    PriceService = Mocks.PriceService,
+                    Logger = Mocks.Logger
                 };
         }
     }

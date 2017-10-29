@@ -1,18 +1,22 @@
 ﻿using System;
-using BloggerDocuments.Tests.PriceCalculatorTests;
+using BloggerDocuments.Tests.Environment.Mocks;
+using NSubstitute;
 
 namespace BloggerDocuments.Tests.Environment
 {
     public static class TestEnvironment
     {
-        public static ITestEnvironment Create(Action<TestEnvironmentBuilder> context)
+        public static ITestEnvironment Create(Action<TestEnvironmentCreateContext> context)
         {
-            var environmentObject = new TestEnvironmentObject();
-            var environmentBuilder = new TestEnvironmentBuilder(environmentObject);
-            context(environmentBuilder);
+            var mocks = new TestMocks();
 
-            environmentObject.DiscountsService =
-                new DiscountsServiceMock(environmentBuilder.DiscountStructure.GetDiscountInfos());
+            var createContextObj = new TestEnvironmentCreateContext(mocks);
+            context(createContextObj);
+
+            mocks.DiscountsService.GetBundleStructure()
+                .Returns(createContextObj.DiscountStructure.GetDiscountInfos());
+
+            var environmentObject = new TestEnvironmentObject(createContextObj, mocks);
 
             return environmentObject;
         }

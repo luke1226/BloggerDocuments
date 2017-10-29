@@ -1,40 +1,31 @@
 using System;
 using System.Collections.Generic;
-using BloggerDocuments.Database;
-using BloggerDocuments.Logging;
 using BloggerDocuments.Prices;
-using BloggerDocuments.Prices.Discounts;
-using BloggerDocuments.Products;
+using BloggerDocuments.Tests.Environment.Mocks;
 using BloggerDocuments.Tests.Environment.Providers;
 
 namespace BloggerDocuments.Tests.Environment
 {
     public interface ITestEnvironment
     {
-        IPriceService PriceService { get; }
-
-        IDiscountsService DiscountsService { get; }
-
-        ISalesOrderRepository SalesOrderRepository { get; }
-
-        ILogger Logger { get; }
+        ITestMocks Mocks { get; }
 
 
 
-        Dictionary<string, Product> Products { get; }
+        ProductsProvider Products { get; }
 
         TestDbObjectList<string, ElementInfo> ElementInfos { get; }
 
         Dictionary<string, ElementPrice> Prices { get; }
 
-        List<int> SalesOrderEntities { get; }
+        IReadOnlyCollection<int> SalesOrderEntities { get; }
 
         DocumentFactoryProvider DocumentFactories { get; }
 
 
 
-        ITestEnvironment Create(Action<TestEnvironmentBuilder> context);
+        ITestEnvironment Create(Action<TestEnvironmentCreateContext> context);
 
-        void Add(Action<TestEnvironmentBuilder> context);
+        void Add(Action<TestEnvironmentAddContext> context);
     }
 }
