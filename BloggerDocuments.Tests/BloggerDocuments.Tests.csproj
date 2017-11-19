@@ -77,6 +77,8 @@
     <Compile Include="Assemblers\DocumentAssemblerWithItemsContext.cs" />
     <Compile Include="Assemblers\DocumentItemAssembler.cs" />
     <Compile Include="Assemblers\ProductAssembler.cs" />
+    <Compile Include="Asserts\ReceiptAssertExtensions.cs" />
+    <Compile Include="Asserts\ReceiptAssertObject.cs" />
     <Compile Include="Environment\ITestEnvironment.cs" />
     <Compile Include="Environment\Mocks\ITestMocks.cs" />
     <Compile Include="Environment\Providers\DocumentFactoryProvider.cs" />
